@@ -24,6 +24,14 @@
   --shadow-lg:0 8px 20px rgba(16,30,54,.10), 0 30px 60px -22px rgba(16,30,54,.30);
   --r:20px; --font:'Plus Jakarta Sans','Segoe UI',system-ui,-apple-system,Roboto,Arial,sans-serif;
 }
+/* ============================================================
+   TEMA POR ESCOLA — PONTO ÚNICO DE TROCA (provisório até o Manual da Marca).
+   Cada escola sobrescreve --accent/--accent2/--accent-d/--accent-soft;
+   todo o app usa essas variáveis, então mudar aqui re-tematiza tudo.
+   ============================================================ */
+#device[data-school="bioma"]{--accent:#1366b0;--accent2:#2a93d8;--accent-d:#0d3b66;--accent-soft:#eaf2fb;}
+#device[data-school="vila"] {--accent:#1f74c4;--accent2:#3aa0e6;--accent-d:#13518f;--accent-soft:#e9f2fc;} /* Escola da Vila — azul (marca real) */
+#device[data-school="apoio"]{--accent:#ef6a2e;--accent2:#ff9356;--accent-d:#c24f1c;--accent-soft:#fdeee5;} /* Colégio Apoio — coral (aproximação) */
 *{box-sizing:border-box;}
 .ic{width:20px;height:20px;flex:none;display:inline-block;vertical-align:middle;
   fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}
@@ -350,6 +358,27 @@ body[data-mode="web"] .sheet{max-width:440px;border-radius:22px;}
 .success .ok{width:74px;height:74px;border-radius:50%;background:linear-gradient(135deg,var(--ok),#34c98a);color:#fff;
   display:flex;align-items:center;justify-content:center;margin:0 auto 14px;box-shadow:0 16px 36px -10px var(--ok);}
 .success .ok .ic{width:38px;height:38px;}
+
+/* ===== Dashboard 2 colunas (Web/Desktop) ===== */
+#scr-home .dash, #scr-home .dcol{display:contents;}
+body[data-mode="web"] #scr-home .dash{display:grid;grid-template-columns:1.55fr 1fr;gap:20px;align-items:start;}
+body[data-mode="web"] #scr-home .dcol{display:flex;flex-direction:column;}
+/* ===== Visão Aluno: oculta itens exclusivos do responsável ===== */
+#device[data-role="aluno"] .only-resp{display:none!important;}
+/* ===== Botão alternativo do login (aluno) ===== */
+#login .loginbtn.alt{background:rgba(255,255,255,.14);color:#fff;border:1px solid rgba(255,255,255,.32);box-shadow:none;margin-top:10px;}
+/* ===== Celular real: app em tela cheia, sem moldura nem seletor ===== */
+@media (max-width:640px){
+  body{padding:0;}
+  #topbar{display:none;}
+  #stage{gap:0;width:100%;}
+  #device{width:100vw;height:100vh;height:100dvh;max-height:none;border-radius:0;box-shadow:none;}
+  .notch{display:none;}
+  #sidenav{display:none!important;}
+  #bottomnav{display:flex!important;}
+  body[data-mode="web"] .screen{max-width:none;margin:0;padding:16px 16px 100px;}
+  body[data-mode="web"] #scr-home .dash{display:contents;}
+}
 </style>
 </head>
 <body data-mode="mobile">
@@ -446,8 +475,9 @@ body[data-mode="web"] .sheet{max-width:440px;border-radius:22px;}
         <div class="sub">Portal do Aluno e da Família</div>
         <div class="field"><svg class="ic"><use href="#i-mail"/></svg><input type="text" value="patricia.souza@email.com"></div>
         <div class="field"><svg class="ic"><use href="#i-lock"/></svg><input type="password" value="••••••••"></div>
-        <button class="loginbtn" onclick="enter()">Entrar <svg class="ic" style="width:18px;height:18px"><use href="#i-chev"/></svg></button>
-        <a class="lk" href="javascript:void(0)" onclick="enter()">Esqueci minha senha</a>
+        <button class="loginbtn" onclick="enterResp()">Entrar como responsável <svg class="ic" style="width:18px;height:18px"><use href="#i-chev"/></svg></button>
+        <button class="loginbtn alt" onclick="enterAluno()"><svg class="ic" style="width:18px;height:18px"><use href="#i-grad"/></svg> Entrar como aluno</button>
+        <a class="lk" href="javascript:void(0)" onclick="enterResp()">Esqueci minha senha</a>
         <a class="lk" href="javascript:void(0)" onclick="openOvl('ov-sobre')">Sobre este protótipo</a>
       </div>
       <div class="tag">Identidade visual provisória · ambiente de demonstração</div>
@@ -473,12 +503,12 @@ body[data-mode="web"] .sheet{max-width:440px;border-radius:22px;}
           <div class="school">Bioma · <span class="ctx-escola">Escola da Vila</span><b class="ctx-nome">Helena Souza</b></div>
           <div class="spacer"></div>
           <button class="iconbtn" onclick="goTab('scr-avisos')"><svg class="ic"><use href="#i-bell"/></svg><span class="nbadge"></span></button>
-          <div class="avatar">P</div>
+          <div class="avatar ctx-avatar">P</div>
         </div>
         <div id="ctxbar" onclick="openOvl('ov-trocar')">
           <div class="cav ctx-ini">H</div>
           <div class="ct"><b class="ctx-nome">Helena</b><small><span class="ctx-serie">7º ano B</span></small></div>
-          <div class="swap">trocar <svg class="ic"><use href="#i-swap"/></svg></div>
+          <div class="swap only-resp">trocar <svg class="ic"><use href="#i-swap"/></svg></div>
         </div>
       </div>
 
@@ -496,15 +526,15 @@ body[data-mode="web"] .sheet{max-width:440px;border-radius:22px;}
           <div class="grp">Comunicação</div>
           <button data-screen="scr-avisos" onclick="go('scr-avisos')"><svg class="ic"><use href="#i-mega"/></svg> Avisos</button>
           <button data-screen="scr-agenda" onclick="go('scr-agenda')"><svg class="ic"><use href="#i-pin"/></svg> Agenda / recados</button>
-          <div class="grp">Financeiro</div>
-          <button data-screen="scr-financeiro" onclick="go('scr-financeiro')"><svg class="ic"><use href="#i-wallet"/></svg> Mensalidades</button>
-          <button data-screen="scr-ir" onclick="go('scr-ir')"><svg class="ic"><use href="#i-receipt"/></svg> Demonstrativo IR</button>
+          <div class="grp only-resp">Financeiro</div>
+          <button class="only-resp" data-screen="scr-financeiro" onclick="go('scr-financeiro')"><svg class="ic"><use href="#i-wallet"/></svg> Mensalidades</button>
+          <button class="only-resp" data-screen="scr-ir" onclick="go('scr-ir')"><svg class="ic"><use href="#i-receipt"/></svg> Demonstrativo IR</button>
           <div class="grp">Secretaria</div>
-          <button data-screen="scr-rematricula" onclick="go('scr-rematricula')"><svg class="ic"><use href="#i-edit"/></svg> Rematrícula</button>
+          <button class="only-resp" data-screen="scr-rematricula" onclick="go('scr-rematricula')"><svg class="ic"><use href="#i-edit"/></svg> Rematrícula</button>
           <button data-screen="scr-requerimentos" onclick="go('scr-requerimentos')"><svg class="ic"><use href="#i-file"/></svg> Requerimentos</button>
           <div class="grp">Conta</div>
           <button data-screen="scr-conta" onclick="go('scr-conta')"><svg class="ic"><use href="#i-user"/></svg> Minha conta</button>
-          <button onclick="openOvl('ov-trocar')"><svg class="ic"><use href="#i-swap"/></svg> Trocar dependente</button>
+          <button class="only-resp" onclick="openOvl('ov-trocar')"><svg class="ic"><use href="#i-swap"/></svg> Trocar dependente</button>
           <button onclick="logout()"><svg class="ic"><use href="#i-logout"/></svg> Sair</button>
         </nav>
 
@@ -513,45 +543,51 @@ body[data-mode="web"] .sheet{max-width:440px;border-radius:22px;}
 
             <!-- HOME -->
             <div id="scr-home" class="screen active">
-              <div class="pagehead"><h2>Olá, Patrícia 👋</h2><p>Acompanhe <span class="ctx-nome">Helena</span> · <span class="ctx-escola">Escola da Vila</span></p></div>
+              <div class="pagehead"><h2>Olá, <span class="ctx-user">Patrícia</span> 👋</h2><p class="ctx-sub">Acompanhe <span class="ctx-nome">Helena</span> · <span class="ctx-escola">Escola da Vila</span></p></div>
 
-              <div class="feature tap" onclick="go('scr-financeiro')">
-                <div class="blob"></div>
-                <div class="lbl">Mensalidade de junho/2026</div>
-                <div class="big">R$ 2.480,00</div>
-                <div class="ftrow"><span class="pill" style="background:rgba(255,255,255,.22);color:#fff"><svg class="ic"><use href="#i-clock"/></svg> vence em 5 dias</span>
-                  <span class="cta">2ª via / PIX <svg class="ic"><use href="#i-chev"/></svg></span></div>
-              </div>
+              <div class="dash">
+                <div class="dcol">
+                  <div class="feature tap only-resp" onclick="go('scr-financeiro')">
+                    <div class="blob"></div>
+                    <div class="lbl">Mensalidade de junho/2026</div>
+                    <div class="big">R$ 2.480,00</div>
+                    <div class="ftrow"><span class="pill" style="background:rgba(255,255,255,.22);color:#fff"><svg class="ic"><use href="#i-clock"/></svg> vence em 5 dias</span>
+                      <span class="cta">2ª via / PIX <svg class="ic"><use href="#i-chev"/></svg></span></div>
+                  </div>
 
-              <div class="stats">
-                <div class="stat">
-                  <div class="ring"><svg viewBox="0 0 84 84"><circle class="rt" cx="42" cy="42" r="34"/><circle class="rp" cx="42" cy="42" r="34" stroke-dasharray="213.6" stroke-dashoffset="12.8"/></svg><div class="rv"><b>94%</b><span>freq.</span></div></div>
-                  <div class="col"><div class="v">Ótima</div><div class="k">Frequência geral</div></div>
+                  <div class="stats">
+                    <div class="stat">
+                      <div class="ring"><svg viewBox="0 0 84 84"><circle class="rt" cx="42" cy="42" r="34"/><circle class="rp" cx="42" cy="42" r="34" stroke-dasharray="213.6" stroke-dashoffset="213.6" data-off="12.8"/></svg><div class="rv"><b>94%</b><span>freq.</span></div></div>
+                      <div class="col"><div class="v">Ótima</div><div class="k">Frequência geral</div></div>
+                    </div>
+                    <div class="stat">
+                      <div class="chip-ic grad"><svg class="ic"><use href="#i-cal"/></svg></div>
+                      <div class="col"><div class="v">23/06</div><div class="k">Prova de Matemática</div></div>
+                    </div>
+                  </div>
+
+                  <h3 class="sec">Acesso rápido</h3>
+                  <div class="quick">
+                    <div class="qa" onclick="go('scr-boletim')"><div class="chip-ic"><svg class="ic"><use href="#i-grad"/></svg></div><div class="t">Boletim</div></div>
+                    <div class="qa" onclick="go('scr-freq')"><div class="chip-ic"><svg class="ic"><use href="#i-check"/></svg></div><div class="t">Frequência</div></div>
+                    <div class="qa" onclick="go('scr-horario')"><div class="chip-ic"><svg class="ic"><use href="#i-clock"/></svg></div><div class="t">Horário</div></div>
+                    <div class="qa only-resp" onclick="go('scr-rematricula')"><div class="chip-ic"><svg class="ic"><use href="#i-edit"/></svg></div><div class="t">Rematrícula</div></div>
+                  </div>
                 </div>
-                <div class="stat">
-                  <div class="chip-ic grad"><svg class="ic"><use href="#i-cal"/></svg></div>
-                  <div class="col"><div class="v">23/06</div><div class="k">Prova de Matemática</div></div>
+
+                <div class="dcol">
+                  <h3 class="sec">Avisos recentes</h3>
+                  <div class="list">
+                    <div class="li" onclick="go('scr-avisos')"><div class="chip-ic"><svg class="ic"><use href="#i-mega"/></svg></div><div><div class="tt">Reunião de pais — 26/06</div><div class="ds">Escola da Vila · há 2 h</div></div><div class="rt"><span class="pill p-dan">novo</span></div></div>
+                    <div class="li" onclick="go('scr-avisos')"><div class="chip-ic"><svg class="ic"><use href="#i-pin"/></svg></div><div><div class="tt">Lista de materiais 2º semestre</div><div class="ds">Coordenação · ontem</div></div><div class="go"><svg class="ic"><use href="#i-chev"/></svg></div></div>
+                  </div>
+
+                  <h3 class="sec">Próximos eventos</h3>
+                  <div class="list">
+                    <div class="li" onclick="go('scr-calendario')"><div class="chip-ic"><svg class="ic"><use href="#i-cal"/></svg></div><div><div class="tt">Prova de Matemática</div><div class="ds">Terça, 23/06 · 8h</div></div><div class="rt"><span class="pill p-acc">prova</span></div></div>
+                    <div class="li" onclick="go('scr-calendario')"><div class="chip-ic"><svg class="ic"><use href="#i-edit"/></svg></div><div><div class="tt">Entrega — História</div><div class="ds">Sexta, 26/06</div></div><div class="rt"><span class="pill p-mut">tarefa</span></div></div>
+                  </div>
                 </div>
-              </div>
-
-              <h3 class="sec">Acesso rápido</h3>
-              <div class="quick">
-                <div class="qa" onclick="go('scr-boletim')"><div class="chip-ic"><svg class="ic"><use href="#i-grad"/></svg></div><div class="t">Boletim</div></div>
-                <div class="qa" onclick="go('scr-freq')"><div class="chip-ic"><svg class="ic"><use href="#i-check"/></svg></div><div class="t">Frequência</div></div>
-                <div class="qa" onclick="go('scr-horario')"><div class="chip-ic"><svg class="ic"><use href="#i-clock"/></svg></div><div class="t">Horário</div></div>
-                <div class="qa" onclick="go('scr-rematricula')"><div class="chip-ic"><svg class="ic"><use href="#i-edit"/></svg></div><div class="t">Rematrícula</div></div>
-              </div>
-
-              <h3 class="sec">Avisos recentes</h3>
-              <div class="list">
-                <div class="li" onclick="go('scr-avisos')"><div class="chip-ic"><svg class="ic"><use href="#i-mega"/></svg></div><div><div class="tt">Reunião de pais — 26/06</div><div class="ds">Escola da Vila · há 2 h</div></div><div class="rt"><span class="pill p-dan">novo</span></div></div>
-                <div class="li" onclick="go('scr-avisos')"><div class="chip-ic"><svg class="ic"><use href="#i-pin"/></svg></div><div><div class="tt">Lista de materiais 2º semestre</div><div class="ds">Coordenação · ontem</div></div><div class="go"><svg class="ic"><use href="#i-chev"/></svg></div></div>
-              </div>
-
-              <h3 class="sec">Próximos eventos</h3>
-              <div class="list">
-                <div class="li" onclick="go('scr-calendario')"><div class="chip-ic"><svg class="ic"><use href="#i-cal"/></svg></div><div><div class="tt">Prova de Matemática</div><div class="ds">Terça, 23/06 · 8h</div></div><div class="rt"><span class="pill p-acc">prova</span></div></div>
-                <div class="li" onclick="go('scr-calendario')"><div class="chip-ic"><svg class="ic"><use href="#i-edit"/></svg></div><div><div class="tt">Entrega — História</div><div class="ds">Sexta, 26/06</div></div><div class="rt"><span class="pill p-mut">tarefa</span></div></div>
               </div>
             </div>
 
@@ -559,7 +595,7 @@ body[data-mode="web"] .sheet{max-width:440px;border-radius:22px;}
             <div id="scr-boletim" class="screen">
               <div class="subhead"><button class="backbtn" onclick="back()"><svg class="ic"><use href="#i-back"/></svg></button><h2>Boletim e notas</h2></div>
               <div class="card" style="display:flex;align-items:center;gap:16px">
-                <div class="ring"><svg viewBox="0 0 84 84"><circle class="rt" cx="42" cy="42" r="34"/><circle class="rp" cx="42" cy="42" r="34" stroke-dasharray="213.6" stroke-dashoffset="22"/></svg><div class="rv"><b>8,6</b><span>média</span></div></div>
+                <div class="ring"><svg viewBox="0 0 84 84"><circle class="rt" cx="42" cy="42" r="34"/><circle class="rp" cx="42" cy="42" r="34" stroke-dasharray="213.6" stroke-dashoffset="213.6" data-off="22"/></svg><div class="rv"><b>8,6</b><span>média</span></div></div>
                 <div><div class="tt" style="font-size:16px">2º trimestre</div><div class="ds"><span class="ctx-nome">Helena</span> · 6 disciplinas</div><span class="pill p-ok" style="margin-top:8px"><svg class="ic"><use href="#i-check"/></svg> em dia</span></div>
               </div>
               <div class="card">
@@ -762,11 +798,11 @@ body[data-mode="web"] .sheet{max-width:440px;border-radius:22px;}
             <div id="scr-mais" class="screen">
               <div class="pagehead"><h2>Mais</h2></div>
               <div class="list">
-                <div class="li" onclick="go('scr-rematricula')"><div class="chip-ic"><svg class="ic"><use href="#i-edit"/></svg></div><div><div class="tt">Rematrícula</div></div><div class="go"><svg class="ic"><use href="#i-chev"/></svg></div></div>
+                <div class="li only-resp" onclick="go('scr-rematricula')"><div class="chip-ic"><svg class="ic"><use href="#i-edit"/></svg></div><div><div class="tt">Rematrícula</div></div><div class="go"><svg class="ic"><use href="#i-chev"/></svg></div></div>
                 <div class="li" onclick="go('scr-requerimentos')"><div class="chip-ic"><svg class="ic"><use href="#i-file"/></svg></div><div><div class="tt">Secretaria / requerimentos</div></div><div class="go"><svg class="ic"><use href="#i-chev"/></svg></div></div>
                 <div class="li" onclick="go('scr-agenda')"><div class="chip-ic"><svg class="ic"><use href="#i-pin"/></svg></div><div><div class="tt">Agenda / recados</div></div><div class="go"><svg class="ic"><use href="#i-chev"/></svg></div></div>
                 <div class="li" onclick="go('scr-conta')"><div class="chip-ic"><svg class="ic"><use href="#i-user"/></svg></div><div><div class="tt">Minha conta &amp; privacidade</div></div><div class="go"><svg class="ic"><use href="#i-chev"/></svg></div></div>
-                <div class="li" onclick="openOvl('ov-trocar')"><div class="chip-ic"><svg class="ic"><use href="#i-swap"/></svg></div><div><div class="tt">Trocar dependente</div></div><div class="go"><svg class="ic"><use href="#i-chev"/></svg></div></div>
+                <div class="li only-resp" onclick="openOvl('ov-trocar')"><div class="chip-ic"><svg class="ic"><use href="#i-swap"/></svg></div><div><div class="tt">Trocar dependente</div></div><div class="go"><svg class="ic"><use href="#i-chev"/></svg></div></div>
                 <div class="li" onclick="openOvl('ov-sobre')"><div class="chip-ic"><svg class="ic"><use href="#i-info"/></svg></div><div><div class="tt">Sobre este protótipo</div></div><div class="go"><svg class="ic"><use href="#i-chev"/></svg></div></div>
                 <div class="li" onclick="logout()"><div class="chip-ic" style="background:var(--dangerbg);color:var(--danger)"><svg class="ic"><use href="#i-logout"/></svg></div><div><div class="tt" style="color:var(--danger)">Sair</div></div></div>
               </div>
@@ -780,7 +816,7 @@ body[data-mode="web"] .sheet{max-width:440px;border-radius:22px;}
         <button data-tab="home" class="on" onclick="goTab('scr-home')"><span class="nic"><svg class="ic"><use href="#i-home"/></svg></span>Início</button>
         <button data-tab="acad" onclick="goTab('scr-boletim')"><span class="nic"><svg class="ic"><use href="#i-grad"/></svg></span>Acadêmico</button>
         <button data-tab="avisos" onclick="goTab('scr-avisos')"><span class="nic"><svg class="ic"><use href="#i-mega"/></svg></span>Avisos</button>
-        <button data-tab="financeiro" onclick="goTab('scr-financeiro')"><span class="nic"><svg class="ic"><use href="#i-wallet"/></svg></span>Financeiro</button>
+        <button class="only-resp" data-tab="financeiro" onclick="goTab('scr-financeiro')"><span class="nic"><svg class="ic"><use href="#i-wallet"/></svg></span>Financeiro</button>
         <button data-tab="mais" onclick="goTab('scr-mais')"><span class="nic"><svg class="ic"><use href="#i-grid"/></svg></span>Mais</button>
       </div>
     </div><!-- /appwrap -->
@@ -857,24 +893,38 @@ function activate(id){
   var t=tabOf(id);
   document.querySelectorAll('#bottomnav button').forEach(function(b){b.classList.toggle('on',b.dataset.tab===t);});
   document.querySelectorAll('#sidenav button').forEach(function(b){b.classList.toggle('on',b.dataset.screen===id);});
+  var rings=el.querySelectorAll('.rp[data-off]');
+  rings.forEach(function(c){c.style.strokeDashoffset='213.6';});
+  setTimeout(function(){rings.forEach(function(c){c.style.strokeDashoffset=c.getAttribute('data-off');});},90);
 }
 function go(id){ if(stack[stack.length-1]!==id)stack.push(id); activate(id); }
 function goTab(id){ stack=[id]; activate(id); }
 function back(){ if(stack.length>1)stack.pop(); activate(stack[stack.length-1]); }
 
-function enter(){ document.getElementById('login').classList.remove('show'); document.getElementById('select').classList.add('show'); }
-function pick(key){
+function setTxt(sel,txt){document.querySelectorAll(sel).forEach(function(e){e.textContent=txt;});}
+function applyDep(key,role){
   var d=DEP[key];
   device.setAttribute('data-school',d.school);
-  document.querySelectorAll('.ctx-nome').forEach(function(e){e.textContent=d.nome;});
-  document.querySelectorAll('.ctx-serie').forEach(function(e){e.textContent=d.serie;});
-  document.querySelectorAll('.ctx-escola').forEach(function(e){e.textContent=d.escola;});
-  document.querySelectorAll('.ctx-ini').forEach(function(e){e.textContent=d.ini;});
+  device.setAttribute('data-role',role);
+  setTxt('.ctx-nome',d.nome); setTxt('.ctx-serie',d.serie);
+  setTxt('.ctx-escola',d.escola); setTxt('.ctx-ini',d.ini);
+  if(role==='aluno'){
+    setTxt('.ctx-user',d.nome);
+    setTxt('.ctx-sub','Sua vida acadêmica · '+d.escola);
+    setTxt('.ctx-avatar',d.ini);
+  }else{
+    setTxt('.ctx-user','Patrícia');
+    setTxt('.ctx-sub','Acompanhe '+d.nome+' · '+d.escola);
+    setTxt('.ctx-avatar','P');
+  }
   document.getElementById('select').classList.remove('show');
   closeOvl('ov-trocar');
   document.getElementById('appwrap').style.display='flex';
   goTab('scr-home');
 }
+function pick(key){ applyDep(key, device.getAttribute('data-role')||'resp'); }
+function enterResp(){ device.setAttribute('data-role','resp'); document.getElementById('login').classList.remove('show'); document.getElementById('select').classList.add('show'); }
+function enterAluno(){ document.getElementById('login').classList.remove('show'); applyDep('vila','aluno'); }
 function logout(){
   document.getElementById('appwrap').style.display='none';
   document.getElementById('select').classList.remove('show');
