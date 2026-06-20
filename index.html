@@ -3,283 +3,217 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#0d3b66">
+<meta name="theme-color" content="#1920c7">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Portal Bioma">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon-180.png">
-<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20512%20512'%3E%3Crect%20width='512'%20height='512'%20rx='110'%20fill='%230d3b66'/%3E%3Ctext%20x='256'%20y='330'%20font-family='Arial,Helvetica,sans-serif'%20font-size='250'%20font-weight='700'%20fill='%23ffffff'%20text-anchor='middle'%3Ebe%3C/text%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20512%20512'%3E%3Cdefs%3E%3ClinearGradient%20id='g'%20x1='0'%20y1='0'%20x2='1'%20y2='1'%3E%3Cstop%20offset='0'%20stop-color='%2300e1ef'/%3E%3Cstop%20offset='1'%20stop-color='%231920c7'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20width='512'%20height='512'%20rx='120'%20fill='url(%23g)'/%3E%3Ctext%20x='256'%20y='342'%20font-family='Comfortaa,Arial'%20font-size='250'%20font-weight='700'%20fill='%23ffffff'%20text-anchor='middle'%3Eb%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;500;600;700&family=Jost:wght@400;500;600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
 <title>Protótipo Navegável · Portal Bioma (Aluno e Família)</title>
 <style>
 :root{
-  --bioma:#0d3b66; --ink:#15233b; --muted:#6c7689; --line:#eef1f6; --bg:#f5f7fb;
+  --ink:#1f2430; --muted:#6c7689; --line:#ebedf3; --bg:#f5f6fa;
   --ok:#0fa371; --okbg:#e4f6ee; --warn:#b4720a; --warnbg:#fcf2dc; --danger:#dc3a4a; --dangerbg:#fdebed;
-  --accent:#1366b0; --accent2:#2a93d8; --accent-d:#0d3b66; --accent-soft:#eaf2fb;
-  --shadow:0 2px 5px rgba(16,30,54,.05), 0 16px 36px -16px rgba(16,30,54,.18);
-  --shadow-lg:0 8px 20px rgba(16,30,54,.10), 0 30px 60px -22px rgba(16,30,54,.30);
-  --r:20px; --font:'Plus Jakarta Sans','Segoe UI',system-ui,-apple-system,Roboto,Arial,sans-serif;
+  /* tema default (Bioma) — sobrescrito por escola */
+  --accent:#1920c7; --accent2:#00e1ef; --accent-d:#141a8f; --accent-soft:#eaeafc;
+  --font:'Comfortaa','Segoe UI',system-ui,sans-serif;
+  --shadow:0 2px 5px rgba(20,26,80,.05), 0 16px 36px -16px rgba(20,26,80,.18);
+  --shadow-lg:0 8px 20px rgba(20,26,80,.10), 0 30px 60px -22px rgba(20,26,80,.30);
+  --r:20px;
 }
-/* ============================================================
-   TEMA POR ESCOLA — PONTO ÚNICO DE TROCA (provisório até o Manual da Marca).
-   Cada escola sobrescreve --accent/--accent2/--accent-d/--accent-soft;
-   todo o app usa essas variáveis, então mudar aqui re-tematiza tudo.
-   ============================================================ */
-#device[data-school="bioma"]{--accent:#1366b0;--accent2:#2a93d8;--accent-d:#0d3b66;--accent-soft:#eaf2fb;}
-#device[data-school="vila"] {--accent:#1f74c4;--accent2:#3aa0e6;--accent-d:#13518f;--accent-soft:#e9f2fc;} /* Escola da Vila — azul (marca real) */
-#device[data-school="apoio"]{--accent:#ef6a2e;--accent2:#ff9356;--accent-d:#c24f1c;--accent-soft:#fdeee5;} /* Colégio Apoio — coral (aproximação) */
+/* ===== TEMA POR ESCOLA — fiel aos manuais de marca ===== */
+#device[data-school="bioma"]{--accent:#1920c7;--accent2:#00e1ef;--accent-d:#141a8f;--accent-soft:#eaeafc;--font:'Comfortaa','Segoe UI',system-ui,sans-serif;}
+#device[data-school="vila"] {--accent:#1D2362;--accent2:#584294;--accent-d:#141845;--accent-soft:#ecedf6;--font:'Quicksand','Segoe UI',system-ui,sans-serif;} /* Escola da Vila — índigo #1D2362 + multicor */
+#device[data-school="parque"]{--accent:#00843d;--accent2:#43b02a;--accent-d:#00632e;--accent-soft:#e7f4ea;--font:'Jost','Segoe UI',system-ui,sans-serif;} /* Escola Parque — verde/multicor */
 *{box-sizing:border-box;}
-.ic{width:20px;height:20px;flex:none;display:inline-block;vertical-align:middle;
-  fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}
+.ic{width:20px;height:20px;flex:none;display:inline-block;vertical-align:middle;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}
 html,body{margin:0;min-height:100%;}
 body{font-family:var(--font);color:var(--ink);
-  background:radial-gradient(1200px 600px at 15% -5%, #16527e 0%, transparent 55%),
-             radial-gradient(1000px 700px at 110% 10%, #1f8fae 0%, transparent 50%),
-             linear-gradient(135deg,#0a2f50,#0d3b66 45%,#10516f);
+  background:radial-gradient(1100px 600px at 12% -8%, #2030e0 0%, transparent 52%),
+             radial-gradient(900px 700px at 112% 8%, #00e1ef 0%, transparent 46%),
+             linear-gradient(140deg,#10157a,#1920c7 48%,#0bb6d6);
   display:flex;flex-direction:column;align-items:center;padding:14px 16px 50px;min-height:100vh;}
 
-/* ===== TOP SELECTOR ===== */
+/* TOP SELECTOR */
 #topbar{width:100%;max-width:1200px;display:flex;align-items:center;gap:14px;color:#fff;margin-bottom:18px;flex-wrap:wrap;}
-#topbar .ti{font-weight:800;font-size:15px;letter-spacing:.2px;}
-#topbar .ts{font-size:12px;opacity:.72;margin-top:1px;}
+#topbar .ti{font-weight:700;font-size:15px;letter-spacing:.2px;font-family:'Comfortaa',sans-serif;}
+#topbar .ts{font-size:12px;opacity:.78;margin-top:2px;}
 #topbar .spacer{flex:1;}
-#seg{display:flex;background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.22);
-  border-radius:40px;padding:5px;gap:4px;backdrop-filter:blur(8px);}
-#seg button{border:0;background:none;color:#fff;font-family:inherit;font-size:13px;font-weight:700;
-  padding:8px 18px;border-radius:40px;cursor:pointer;display:flex;align-items:center;gap:7px;opacity:.78;transition:.18s;}
+#seg{display:flex;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);border-radius:40px;padding:5px;gap:4px;backdrop-filter:blur(8px);}
+#seg button{border:0;background:none;color:#fff;font-family:inherit;font-size:13px;font-weight:600;padding:8px 18px;border-radius:40px;cursor:pointer;display:flex;align-items:center;gap:7px;opacity:.8;transition:.18s;}
 #seg button .ic{width:17px;height:17px;}
-#seg button.on{background:#fff;color:var(--bioma);opacity:1;box-shadow:0 6px 16px rgba(0,0,0,.18);}
-#topbar .about{display:flex;align-items:center;gap:7px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);
-  color:#fff;border-radius:40px;padding:8px 15px;font-size:12.5px;cursor:pointer;font-family:inherit;font-weight:600;backdrop-filter:blur(8px);}
+#seg button.on{background:#fff;color:#1920c7;opacity:1;box-shadow:0 6px 16px rgba(0,0,0,.18);}
+#topbar .about{display:flex;align-items:center;gap:7px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);color:#fff;border-radius:40px;padding:8px 14px;font-size:12.5px;cursor:pointer;font-family:inherit;font-weight:600;backdrop-filter:blur(8px);}
 #topbar .about .ic{width:16px;height:16px;}
+#stage{display:flex;gap:28px;justify-content:center;align-items:flex-start;width:100%;}
 
-#stage{display:flex;gap:30px;justify-content:center;align-items:flex-start;width:100%;}
-
-/* ===== ASIDE ===== */
+/* ASIDE */
 #aside{width:316px;flex:none;color:#fff;position:sticky;top:14px;}
-#aside .card{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);
-  border-radius:18px;padding:16px 17px;margin-bottom:13px;backdrop-filter:blur(10px);}
-#aside .card h2{font-size:11px;text-transform:uppercase;letter-spacing:1.4px;margin:0 0 11px;color:#9fd0f5;font-weight:800;}
-#aside .card p,#aside .card li{font-size:12.6px;line-height:1.55;opacity:.95;margin:5px 0;}
+#aside .card{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);border-radius:18px;padding:15px 16px;margin-bottom:12px;backdrop-filter:blur(10px);}
+#aside .card h2{font-size:11px;text-transform:uppercase;letter-spacing:1.4px;margin:0 0 10px;color:#bdf5fb;font-weight:700;}
+#aside .card p,#aside .card li{font-size:12.4px;line-height:1.5;opacity:.95;margin:5px 0;}
 #aside ul{margin:4px 0;padding-left:17px;}
-#aside .persona{display:flex;gap:11px;align-items:center;margin:9px 0;}
-#aside .pav{width:34px;height:34px;border-radius:12px;flex:none;display:flex;align-items:center;
-  justify-content:center;font-weight:800;color:#fff;font-size:13px;box-shadow:0 6px 14px rgba(0,0,0,.2);}
-#aside .swatch{display:inline-block;width:12px;height:12px;border-radius:4px;margin-right:6px;vertical-align:middle;}
-#aside .foot{font-size:11px;opacity:.6;margin-top:7px;}
+#aside .persona{display:flex;gap:11px;align-items:center;margin:8px 0;}
+#aside .pav{width:34px;height:34px;border-radius:11px;flex:none;display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff;font-size:13px;}
+#aside .sw{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:5px;vertical-align:middle;}
+#aside .foot{font-size:11px;opacity:.62;margin-top:7px;}
 body[data-mode="web"] #aside{display:none;}
 @media(max-width:1100px){#aside{display:none;}}
 
-/* ===== DEVICE FRAME ===== */
-#device{position:relative;background:var(--bg);overflow:hidden;display:flex;flex-direction:column;
-  width:412px;height:862px;max-height:92vh;border-radius:42px;
-  box-shadow:0 0 0 11px #0b1622, 0 0 0 13px #1c2942, var(--shadow-lg);
-  transition:width .3s,height .3s,border-radius .3s;}
-.notch{position:absolute;top:9px;left:50%;transform:translateX(-50%);width:120px;height:26px;
-  background:#0b1622;border-radius:16px;z-index:60;}
+/* DEVICE */
+#device{position:relative;background:var(--bg);overflow:hidden;display:flex;flex-direction:column;width:412px;height:862px;max-height:92vh;border-radius:42px;box-shadow:0 0 0 11px #0b1622,0 0 0 13px #1c2942,var(--shadow-lg);transition:width .3s,height .3s,border-radius .3s;}
+.notch{position:absolute;top:9px;left:50%;transform:translateX(-50%);width:120px;height:26px;background:#0b1622;border-radius:16px;z-index:60;}
 .browserbar{display:none;}
-body[data-mode="web"] #device{width:min(1140px,96vw);height:min(770px,86vh);border-radius:14px;
-  box-shadow:0 0 0 1px #cbd3e0, var(--shadow-lg);}
+body[data-mode="web"] #device{width:min(1140px,96vw);height:min(770px,86vh);border-radius:14px;box-shadow:0 0 0 1px #cbd3e0,var(--shadow-lg);}
 body[data-mode="web"] .notch{display:none;}
-body[data-mode="web"] .browserbar{display:flex;align-items:center;gap:8px;background:#e9edf4;
-  padding:10px 15px;flex:none;border-bottom:1px solid #d6dce7;}
+body[data-mode="web"] .browserbar{display:flex;align-items:center;gap:8px;background:#e9edf4;padding:10px 15px;flex:none;border-bottom:1px solid #d6dce7;}
 body[data-mode="web"] .browserbar .dot{width:11px;height:11px;border-radius:50%;}
-body[data-mode="web"] .browserbar .url{flex:1;background:#fff;border-radius:20px;padding:6px 14px;
-  font-size:11.5px;color:#6c7689;border:1px solid #d6dce7;display:flex;align-items:center;gap:7px;}
+body[data-mode="web"] .browserbar .url{flex:1;background:#fff;border-radius:20px;padding:6px 14px;font-size:11.5px;color:#6c7689;border:1px solid #d6dce7;display:flex;align-items:center;gap:7px;}
 body[data-mode="web"] .browserbar .url .ic{width:13px;height:13px;color:var(--ok);}
 
-/* ===== APP SHELL ===== */
+/* APP SHELL */
 #appwrap{display:none;flex-direction:column;flex:1;min-height:0;}
-#appbar{position:relative;color:#fff;padding:38px 18px 20px;flex:none;overflow:hidden;
-  background:linear-gradient(135deg,var(--accent-d),var(--accent) 55%,var(--accent2));
-  transition:background .35s;}
+#appbar{position:relative;color:#fff;padding:38px 18px 20px;flex:none;overflow:hidden;background:linear-gradient(135deg,var(--accent-d),var(--accent) 55%,var(--accent2));transition:background .35s;}
 body[data-mode="web"] #appbar{padding:16px 24px;}
-#appbar .blob{position:absolute;border-radius:50%;filter:blur(2px);opacity:.35;pointer-events:none;}
+#appbar .blob{position:absolute;border-radius:50%;filter:blur(2px);opacity:.30;pointer-events:none;}
 #appbar .blob.b1{width:160px;height:160px;background:rgba(255,255,255,.30);top:-70px;right:-30px;}
-#appbar .blob.b2{width:120px;height:120px;background:rgba(255,255,255,.18);bottom:-60px;left:30%;}
-#appbar .leaf{position:absolute;right:-8px;bottom:-10px;width:120px;height:120px;opacity:.13;color:#fff;pointer-events:none;}
+#appbar .blob.b2{width:120px;height:120px;background:rgba(255,255,255,.16);bottom:-60px;left:30%;}
 #appbar .toprow{position:relative;z-index:2;display:flex;align-items:center;gap:11px;}
-#appbar .logo{width:34px;height:34px;border-radius:11px;background:rgba(255,255,255,.20);
-  display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;backdrop-filter:blur(4px);}
-#appbar .school{font-size:11.5px;opacity:.85;line-height:1.15;font-weight:600;}
-#appbar .school b{display:block;font-size:14.5px;opacity:1;font-weight:800;letter-spacing:.2px;}
+#appbar .brandmark{line-height:1;}
+#appbar .brandmark .school{font-size:16px;font-weight:700;letter-spacing:.2px;}
+#appbar .brandmark .holding{font-size:10px;opacity:.82;font-weight:500;letter-spacing:.4px;margin-top:2px;}
 #appbar .spacer{flex:1;}
-#appbar .iconbtn{width:38px;height:38px;border-radius:12px;background:rgba(255,255,255,.16);border:0;color:#fff;
-  display:flex;align-items:center;justify-content:center;cursor:pointer;position:relative;}
+#appbar .iconbtn{width:38px;height:38px;border-radius:12px;background:rgba(255,255,255,.16);border:0;color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;position:relative;}
 #appbar .iconbtn .ic{width:20px;height:20px;}
 #appbar .iconbtn .nbadge{position:absolute;top:8px;right:9px;width:8px;height:8px;border-radius:50%;background:#ff5a5f;border:2px solid var(--accent);}
-#appbar .avatar{width:40px;height:40px;border-radius:14px;background:#fff;color:var(--accent-d);
-  font-weight:800;display:flex;align-items:center;justify-content:center;font-size:15px;box-shadow:0 6px 14px rgba(0,0,0,.2);}
-
-#ctxbar{position:relative;z-index:2;margin-top:14px;display:flex;align-items:center;gap:10px;cursor:pointer;
-  background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.22);border-radius:16px;padding:8px 12px;backdrop-filter:blur(6px);}
-#ctxbar .cav{width:30px;height:30px;border-radius:9px;background:#fff;color:var(--accent-d);font-weight:800;
-  font-size:12px;display:flex;align-items:center;justify-content:center;}
+#appbar .avatar{width:40px;height:40px;border-radius:14px;background:#fff;color:var(--accent-d);font-weight:700;display:flex;align-items:center;justify-content:center;font-size:15px;box-shadow:0 6px 14px rgba(0,0,0,.2);}
+#ctxbar{position:relative;z-index:2;margin-top:14px;display:flex;align-items:center;gap:10px;cursor:pointer;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.22);border-radius:16px;padding:8px 12px;backdrop-filter:blur(6px);}
+#ctxbar .cav{width:30px;height:30px;border-radius:9px;background:#fff;color:var(--accent-d);font-weight:700;font-size:12px;display:flex;align-items:center;justify-content:center;}
 #ctxbar .ct{color:#fff;font-size:13px;line-height:1.1;}
-#ctxbar .ct b{font-weight:800;}
-#ctxbar .ct small{display:block;opacity:.8;font-size:11px;font-weight:500;}
-#ctxbar .swap{margin-left:auto;display:flex;align-items:center;gap:5px;font-size:11.5px;color:#fff;opacity:.92;font-weight:700;}
+#ctxbar .ct b{font-weight:700;}
+#ctxbar .ct small{display:block;opacity:.82;font-size:11px;font-weight:500;}
+#ctxbar .swap{margin-left:auto;display:flex;align-items:center;gap:5px;font-size:11.5px;color:#fff;opacity:.92;font-weight:600;}
 #ctxbar .swap .ic{width:15px;height:15px;}
 
 #appbody{flex:1;display:flex;min-height:0;}
 #maincol{flex:1;display:flex;flex-direction:column;min-width:0;}
-
-/* SIDE NAV (web) */
-#sidenav{display:none;width:244px;flex:none;background:#fff;border-right:1px solid var(--line);overflow-y:auto;padding:14px 12px 24px;}
+#sidenav{display:none;width:248px;flex:none;background:#fff;border-right:1px solid var(--line);overflow-y:auto;padding:14px 12px 24px;}
 body[data-mode="web"] #sidenav{display:block;}
-#sidenav .grp{font-size:10px;text-transform:uppercase;letter-spacing:1.2px;color:var(--muted);font-weight:800;padding:14px 12px 6px;}
-#sidenav button{display:flex;align-items:center;gap:12px;width:100%;border:0;background:none;font-family:inherit;
-  font-size:13.4px;font-weight:600;color:var(--ink);padding:10px 12px;border-radius:13px;cursor:pointer;text-align:left;transition:.15s;}
-#sidenav button .ic{width:19px;height:19px;color:var(--muted);flex:none;}
+#sidenav .grp{font-size:10px;text-transform:uppercase;letter-spacing:1.1px;color:var(--muted);font-weight:700;padding:14px 12px 6px;}
+#sidenav button{display:flex;align-items:center;gap:11px;width:100%;border:0;background:none;font-family:inherit;font-size:13.2px;font-weight:600;color:var(--ink);padding:9px 12px;border-radius:12px;cursor:pointer;text-align:left;transition:.15s;}
+#sidenav button .ic{width:18px;height:18px;color:var(--muted);flex:none;}
 #sidenav button:hover{background:var(--accent-soft);}
 #sidenav button.on{background:linear-gradient(135deg,var(--accent-d),var(--accent2));color:#fff;box-shadow:var(--shadow);}
 #sidenav button.on .ic{color:#fff;}
 
-/* SCREENS */
 #screens{flex:1;overflow-y:auto;background:linear-gradient(180deg,var(--accent-soft),var(--bg) 220px);-webkit-overflow-scrolling:touch;transition:background .35s;}
 .screen{display:none;padding:16px 16px 100px;}
 .screen.active{display:block;}
-body[data-mode="web"] .screen{max-width:960px;margin:0 auto;padding:24px 30px 50px;}
+body[data-mode="web"] .screen{max-width:900px;margin:0 auto;padding:24px 30px 50px;}
 .screen.active>*{animation:rise .45s cubic-bezier(.2,.7,.2,1) both;}
-.screen.active>*:nth-child(2){animation-delay:.04s}
-.screen.active>*:nth-child(3){animation-delay:.08s}
-.screen.active>*:nth-child(4){animation-delay:.12s}
-.screen.active>*:nth-child(5){animation-delay:.16s}
-.screen.active>*:nth-child(n+6){animation-delay:.2s}
+.screen.active>*:nth-child(2){animation-delay:.04s}.screen.active>*:nth-child(3){animation-delay:.08s}.screen.active>*:nth-child(4){animation-delay:.12s}.screen.active>*:nth-child(n+5){animation-delay:.16s}
 @keyframes rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
-
 .subhead{display:flex;align-items:center;gap:12px;margin:2px 0 14px;}
-.backbtn{width:38px;height:38px;border-radius:12px;border:1px solid var(--line);background:#fff;cursor:pointer;
-  color:var(--ink);display:flex;align-items:center;justify-content:center;box-shadow:var(--shadow);}
+.backbtn{width:38px;height:38px;border-radius:12px;border:1px solid var(--line);background:#fff;cursor:pointer;color:var(--ink);display:flex;align-items:center;justify-content:center;box-shadow:var(--shadow);}
 .backbtn .ic{width:20px;height:20px;}
-.subhead h2{font-size:19px;margin:0;font-weight:800;letter-spacing:-.2px;}
-.screen h3.sec{font-size:11.5px;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin:22px 6px 9px;font-weight:800;}
+.subhead h2{font-size:18px;margin:0;font-weight:700;letter-spacing:-.2px;}
+.screen h3.sec{font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin:20px 6px 9px;font-weight:700;}
 .pagehead{margin:2px 6px 4px;}
-.pagehead h2{font-size:22px;font-weight:800;letter-spacing:-.4px;margin:0;}
+.pagehead h2{font-size:21px;font-weight:700;letter-spacing:-.3px;margin:0;}
 .pagehead p{margin:3px 0 0;color:var(--muted);font-size:13px;font-weight:500;}
 
-/* CARDS */
 .card{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:16px;margin:12px 0;box-shadow:var(--shadow);}
 .card.tap{cursor:pointer;transition:transform .12s,box-shadow .2s;}
 .card.tap:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg);}
-.card.tap:active{transform:scale(.99);}
 .row{display:flex;align-items:center;gap:13px;}
-.tt{font-weight:700;font-size:14.5px;letter-spacing:-.1px;}
+.tt{font-weight:600;font-size:14.5px;letter-spacing:-.1px;}
 .ds{font-size:12.3px;color:var(--muted);margin-top:2px;font-weight:500;}
 .muted{color:var(--muted);font-size:12.5px;font-weight:500;}
-.go{margin-left:auto;color:#c2cad8;display:flex;}
-.go .ic{width:20px;height:20px;}
+.go{margin-left:auto;color:#c2cad8;display:flex;}.go .ic{width:20px;height:20px;}
 
-/* ICON CHIP */
-.chip-ic{width:44px;height:44px;border-radius:14px;flex:none;display:flex;align-items:center;justify-content:center;
-  background:var(--accent-soft);color:var(--accent);}
+.chip-ic{width:44px;height:44px;border-radius:14px;flex:none;display:flex;align-items:center;justify-content:center;background:var(--accent-soft);color:var(--accent);}
 .chip-ic .ic{width:22px;height:22px;}
 .chip-ic.grad{background:linear-gradient(135deg,var(--accent-d),var(--accent2));color:#fff;box-shadow:var(--shadow);}
+/* multicor (identidade Vila/Parque) */
+.ic-teal{background:#e2f5f4;color:#198a86}.ic-magenta{background:#f6e7f3;color:#9B388C}.ic-lime{background:#eef6d2;color:#6c7a0f}
+.ic-orange{background:#fdeede;color:#cf6f17}.ic-blue{background:#e3f1fb;color:#1f78c0}.ic-pink{background:#fde8ed;color:#d83358}
+.ic-yellow{background:#fdf4d0;color:#9c7a12}.ic-green{background:#e6f4ea;color:#00843d}.ic-purple{background:#ece9f6;color:#584294}
 
-/* HERO / FEATURE CARD */
-.feature{position:relative;overflow:hidden;color:#fff;border:0;border-radius:24px;padding:20px;margin:14px 0;
-  background:linear-gradient(135deg,var(--accent-d),var(--accent) 60%,var(--accent2));box-shadow:var(--shadow-lg);}
+.feature{position:relative;overflow:hidden;color:#fff;border:0;border-radius:24px;padding:20px;margin:14px 0;background:linear-gradient(135deg,var(--accent-d),var(--accent) 60%,var(--accent2));box-shadow:var(--shadow-lg);}
 .feature .blob{position:absolute;width:150px;height:150px;border-radius:50%;background:rgba(255,255,255,.16);top:-60px;right:-30px;filter:blur(1px);}
 .feature .lbl{position:relative;z-index:2;opacity:.9;font-size:12.5px;font-weight:600;}
-.feature .big{position:relative;z-index:2;font-size:30px;font-weight:800;margin:4px 0 8px;letter-spacing:-.5px;}
+.feature .big{position:relative;z-index:2;font-size:30px;font-weight:700;margin:4px 0 8px;letter-spacing:-.5px;}
 .feature .ftrow{position:relative;z-index:2;display:flex;align-items:center;gap:10px;}
-.feature .cta{margin-left:auto;display:flex;align-items:center;gap:5px;font-weight:800;font-size:13px;
-  background:rgba(255,255,255,.22);padding:8px 13px;border-radius:30px;}
+.feature .cta{margin-left:auto;display:flex;align-items:center;gap:5px;font-weight:700;font-size:13px;background:rgba(255,255,255,.22);padding:8px 13px;border-radius:30px;}
 .feature .cta .ic{width:16px;height:16px;}
 
-/* PILLS */
-.pill{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:800;padding:4px 11px;border-radius:30px;letter-spacing:.2px;}
+.pill{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;padding:4px 11px;border-radius:30px;letter-spacing:.2px;}
 .pill .ic{width:13px;height:13px;}
-.p-ok{background:var(--okbg);color:var(--ok);}
-.p-warn{background:var(--warnbg);color:var(--warn);}
-.p-dan{background:var(--dangerbg);color:var(--danger);}
-.p-acc{background:var(--accent-soft);color:var(--accent);}
-.p-mut{background:#eef1f6;color:var(--muted);}
+.p-ok{background:var(--okbg);color:var(--ok);}.p-warn{background:var(--warnbg);color:var(--warn);}.p-dan{background:var(--dangerbg);color:var(--danger);}
+.p-acc{background:var(--accent-soft);color:var(--accent);}.p-mut{background:#eef1f6;color:var(--muted);}
 
-/* STAT GRID */
 .stats{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0;}
 .stat{background:#fff;border:1px solid var(--line);border-radius:18px;padding:15px;box-shadow:var(--shadow);display:flex;align-items:center;gap:12px;}
-.stat .col{min-width:0;}
-.stat .v{font-size:20px;font-weight:800;letter-spacing:-.5px;line-height:1;}
-.stat .k{font-size:11.5px;color:var(--muted);font-weight:600;margin-top:3px;}
+.stat .col{min-width:0;}.stat .v{font-size:20px;font-weight:700;letter-spacing:-.5px;line-height:1;}.stat .k{font-size:11.5px;color:var(--muted);font-weight:600;margin-top:3px;}
 
-/* QUICK ACTIONS */
 .quick{display:grid;grid-template-columns:repeat(4,1fr);gap:11px;margin:6px 0 4px;}
-.qa{background:#fff;border:1px solid var(--line);border-radius:18px;padding:14px 8px;text-align:center;cursor:pointer;
-  box-shadow:var(--shadow);transition:transform .12s,box-shadow .2s;}
+body[data-mode="web"] .quick{grid-template-columns:repeat(4,1fr);}
+.qa{background:#fff;border:1px solid var(--line);border-radius:18px;padding:14px 8px;text-align:center;cursor:pointer;box-shadow:var(--shadow);transition:transform .12s,box-shadow .2s;}
 .qa:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg);}
-.qa .chip-ic{margin:0 auto 8px;width:42px;height:42px;}
-.qa .t{font-size:11.8px;font-weight:700;}
+.qa .chip-ic{margin:0 auto 8px;width:42px;height:42px;}.qa .t{font-size:11.6px;font-weight:600;}
 
-/* LIST */
 .list{background:#fff;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;margin:12px 0;box-shadow:var(--shadow);}
 .li{display:flex;align-items:center;gap:13px;padding:14px 15px;border-bottom:1px solid var(--line);cursor:pointer;transition:background .15s;}
-.li:last-child{border-bottom:0;}
-.li:hover{background:var(--accent-soft);}
+.li:last-child{border-bottom:0;}.li:hover{background:var(--accent-soft);}
 .li .rt{margin-left:auto;text-align:right;white-space:nowrap;}
-.li .av{width:40px;height:40px;border-radius:13px;flex:none;display:flex;align-items:center;justify-content:center;font-weight:800;color:#fff;font-size:14px;}
 
-/* RING (progress) */
 .ring{position:relative;width:84px;height:84px;flex:none;}
 .ring svg{transform:rotate(-90deg);width:84px;height:84px;}
 .ring .rt{fill:none;stroke:var(--line);stroke-width:9;}
 .ring .rp{fill:none;stroke:var(--accent);stroke-width:9;stroke-linecap:round;transition:stroke-dashoffset 1.1s cubic-bezier(.2,.8,.2,1);}
-.ring.warn .rp{stroke:var(--warn);}
 .ring .rv{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;}
-.ring .rv b{font-size:20px;font-weight:800;letter-spacing:-.5px;}
-.ring .rv span{font-size:9px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.5px;}
+.ring .rv b{font-size:20px;font-weight:700;letter-spacing:-.5px;}.ring .rv span{font-size:9px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.5px;}
 
-/* GRADE BARS */
-.gbar{margin:11px 0;}
-.gbar .gtop{display:flex;justify-content:space-between;font-size:13px;font-weight:600;margin-bottom:6px;}
-.gbar .gtop b{font-weight:800;}
-.track{height:9px;background:var(--line);border-radius:6px;overflow:hidden;}
-.track>i{display:block;height:100%;border-radius:6px;background:linear-gradient(90deg,var(--accent),var(--accent2));}
+.gbar{margin:11px 0;}.gbar .gtop{display:flex;justify-content:space-between;font-size:13px;font-weight:600;margin-bottom:6px;}.gbar .gtop b{font-weight:700;}
+.track{height:9px;background:var(--line);border-radius:6px;overflow:hidden;}.track>i{display:block;height:100%;border-radius:6px;background:linear-gradient(90deg,var(--accent),var(--accent2));}
 .track.low>i{background:linear-gradient(90deg,#e8893a,#f0a85e);}
 
-/* TABLE */
 .tcard{background:#fff;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;margin:12px 0;box-shadow:var(--shadow);}
-table{width:100%;border-collapse:collapse;font-size:13px;}
-th{background:var(--accent-soft);color:var(--accent-d);text-align:left;padding:11px 13px;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;}
-td{padding:11px 13px;border-bottom:1px solid var(--line);font-weight:500;}
-tr:last-child td{border-bottom:0;}
+table{width:100%;border-collapse:collapse;font-size:12.7px;}
+th{background:var(--accent-soft);color:var(--accent-d);text-align:left;padding:11px 13px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;}
+td{padding:11px 13px;border-bottom:1px solid var(--line);font-weight:500;}tr:last-child td{border-bottom:0;}
 
-/* BUTTONS */
-.btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;border:0;border-radius:15px;padding:15px;
-  font-size:14.5px;font-weight:800;cursor:pointer;color:#fff;font-family:inherit;letter-spacing:.1px;
-  background:linear-gradient(135deg,var(--accent-d),var(--accent2));box-shadow:0 10px 24px -8px var(--accent);transition:.15s;}
-.btn .ic{width:19px;height:19px;}
-.btn:hover{filter:brightness(1.05);transform:translateY(-1px);}
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;border:0;border-radius:15px;padding:15px;font-size:14.5px;font-weight:700;cursor:pointer;color:#fff;font-family:inherit;letter-spacing:.1px;background:linear-gradient(135deg,var(--accent-d),var(--accent2));box-shadow:0 10px 24px -8px var(--accent);transition:.15s;}
+.btn .ic{width:19px;height:19px;}.btn:hover{filter:brightness(1.06);transform:translateY(-1px);}
 .btn:disabled{opacity:.4;cursor:not-allowed;filter:none;transform:none;box-shadow:none;}
-.btn.ghost{background:#fff;color:var(--accent);border:1.6px solid var(--accent);box-shadow:none;}
-.btn.ghost:hover{background:var(--accent-soft);}
+.btn.ghost{background:#fff;color:var(--accent);border:1.6px solid var(--accent);box-shadow:none;}.btn.ghost:hover{background:var(--accent-soft);}
 
-/* WEEK GRID */
 .week{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;}
-.week .d{text-align:center;font-weight:800;color:var(--muted);font-size:10.5px;padding:4px 0;text-transform:uppercase;letter-spacing:.4px;}
+.week .d{text-align:center;font-weight:700;color:var(--muted);font-size:10.5px;padding:4px 0;text-transform:uppercase;letter-spacing:.4px;}
 .week .c{border-radius:11px;padding:8px 4px;text-align:center;min-height:46px;background:var(--accent-soft);}
-.week .c b{display:block;font-size:11px;font-weight:800;color:var(--accent-d);}
-.week .c span{font-size:9px;color:var(--muted);font-weight:600;}
+.week .c b{display:block;font-size:11px;font-weight:700;color:var(--accent-d);}.week .c span{font-size:9px;color:var(--muted);font-weight:600;}
 
-/* TIMELINE */
 .tl{position:relative;margin:8px 0 0 8px;padding-left:22px;}
 .tl:before{content:"";position:absolute;left:5px;top:6px;bottom:6px;width:2px;background:var(--line);}
 .tl .ev{position:relative;margin-bottom:16px;}
-.tl .ev:before{content:"";position:absolute;left:-22px;top:3px;width:12px;height:12px;border-radius:50%;
-  background:linear-gradient(135deg,var(--accent),var(--accent2));border:3px solid #fff;box-shadow:0 0 0 1px var(--line);}
-.tl .ev .tm{font-size:11px;color:var(--muted);font-weight:700;}
-.tl .ev .tx{font-size:13.5px;font-weight:600;margin-top:2px;}
+.tl .ev:before{content:"";position:absolute;left:-22px;top:3px;width:12px;height:12px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2));border:3px solid #fff;box-shadow:0 0 0 1px var(--line);}
+.tl .ev .tm{font-size:11px;color:var(--muted);font-weight:700;}.tl .ev .tx{font-size:13.5px;font-weight:600;margin-top:2px;}
 
-/* BOTTOM NAV */
-#bottomnav{display:flex;background:rgba(255,255,255,.88);backdrop-filter:blur(14px);border-top:1px solid var(--line);
-  padding:8px 6px calc(8px + env(safe-area-inset-bottom,0px));flex:none;}
+/* step flow (matrícula) */
+.steps{margin:12px 0;}
+.step{display:flex;align-items:center;gap:13px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:13px 15px;margin-bottom:9px;box-shadow:var(--shadow);cursor:pointer;}
+.step .num{width:30px;height:30px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;background:var(--accent-soft);color:var(--accent);}
+.step.done .num{background:var(--ok);color:#fff;}
+.step .tt{font-size:14px;font-weight:600;}
+
+#bottomnav{display:flex;background:rgba(255,255,255,.9);backdrop-filter:blur(14px);border-top:1px solid var(--line);padding:8px 6px calc(8px + env(safe-area-inset-bottom,0px));flex:none;}
 body[data-mode="web"] #bottomnav{display:none;}
-#bottomnav button{flex:1;border:0;background:none;padding:4px 2px;cursor:pointer;font-family:inherit;color:var(--muted);
-  font-size:10px;font-weight:700;display:flex;flex-direction:column;align-items:center;gap:5px;transition:.15s;}
+#bottomnav button{flex:1;border:0;background:none;padding:4px 2px;cursor:pointer;font-family:inherit;color:var(--muted);font-size:10px;font-weight:600;display:flex;flex-direction:column;align-items:center;gap:5px;transition:.15s;}
 #bottomnav button .nic{width:42px;height:32px;border-radius:12px;display:flex;align-items:center;justify-content:center;transition:.2s;}
 #bottomnav button .nic .ic{width:21px;height:21px;}
 #bottomnav button.on{color:var(--accent);}
@@ -289,46 +223,39 @@ body[data-mode="web"] #bottomnav{display:none;}
 .fs{position:absolute;inset:0;z-index:50;display:none;flex-direction:column;}
 .fs.show{display:flex;}
 #login{justify-content:center;align-items:center;padding:40px 30px;text-align:center;color:#fff;overflow:hidden;
-  background:radial-gradient(700px 380px at 80% 0%, #2a93d8 0%, transparent 60%),
-             radial-gradient(600px 400px at 0% 100%, #12a594 0%, transparent 55%),
-             linear-gradient(160deg,#0a2f50,#0d3b66 55%,#10516f);}
-#login .blob{position:absolute;border-radius:50%;filter:blur(30px);opacity:.5;}
-#login .blob.l1{width:200px;height:200px;background:#2a93d8;top:-40px;left:-50px;}
-#login .blob.l2{width:180px;height:180px;background:#12a594;bottom:30px;right:-50px;opacity:.4;}
-#login .inner{position:relative;z-index:2;width:100%;max-width:330px;}
-#login .mark{width:74px;height:74px;border-radius:22px;margin:0 auto 18px;display:flex;align-items:center;justify-content:center;
-  font-size:30px;font-weight:800;color:#fff;background:linear-gradient(135deg,#1f8fd0,#12a594);box-shadow:0 16px 40px -10px rgba(0,0,0,.5);}
-#login h1{font-size:27px;margin:0 0 5px;font-weight:800;letter-spacing:-.5px;}
-#login .sub{opacity:.82;font-size:13.5px;margin-bottom:26px;font-weight:500;}
-#login .field{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);
-  border-radius:14px;padding:13px 15px;margin:10px 0;backdrop-filter:blur(6px);}
-#login .field .ic{width:18px;height:18px;color:rgba(255,255,255,.7);flex:none;}
+  background:radial-gradient(680px 360px at 82% 2%, #00e1ef 0%, transparent 58%),
+            radial-gradient(560px 420px at 0% 100%, #2a32e6 0%, transparent 56%),
+            linear-gradient(160deg,#10157a,#1920c7 56%,#0bb6d6);}
+#login .blob{position:absolute;border-radius:50%;filter:blur(34px);opacity:.5;}
+#login .blob.l1{width:210px;height:210px;background:#00e1ef;top:-50px;left:-60px;}
+#login .blob.l2{width:190px;height:190px;background:#3a32e6;bottom:24px;right:-56px;opacity:.45;}
+#login .inner{position:relative;z-index:2;width:100%;max-width:332px;}
+#login .logo{margin:0 auto 8px;}
+#login .logo .word{font-family:'Comfortaa',sans-serif;font-weight:700;font-size:46px;letter-spacing:-1px;color:#fff;line-height:1;}
+#login .logo .sub{font-family:'Comfortaa',sans-serif;font-weight:500;font-size:19px;color:#cfeaff;margin-top:-2px;}
+#login .tagline{opacity:.82;font-size:13px;margin:14px 0 24px;font-weight:500;}
+#login .field{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);border-radius:14px;padding:13px 15px;margin:10px 0;backdrop-filter:blur(6px);}
+#login .field .ic{width:18px;height:18px;color:rgba(255,255,255,.75);flex:none;}
 #login .field input{flex:1;background:none;border:0;outline:0;color:#fff;font-size:14px;font-family:inherit;}
 #login .field input::placeholder{color:rgba(255,255,255,.6);}
-#login .loginbtn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:14px;border:0;border-radius:14px;
-  padding:15px;font-size:15px;font-weight:800;cursor:pointer;color:var(--bioma);background:#fff;font-family:inherit;box-shadow:0 14px 30px -10px rgba(0,0,0,.4);}
-#login .lk{display:block;margin-top:15px;font-size:12.5px;color:#bfe3ff;text-decoration:none;font-weight:600;}
-#login .tag{position:absolute;bottom:18px;left:0;right:0;text-align:center;font-size:10.5px;opacity:.55;z-index:2;}
+#login .loginbtn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:14px;border:0;border-radius:14px;padding:15px;font-size:15px;font-weight:700;cursor:pointer;color:#1920c7;background:#fff;font-family:inherit;box-shadow:0 14px 30px -10px rgba(0,0,0,.4);}
+#login .loginbtn.alt{background:rgba(255,255,255,.14);color:#fff;border:1px solid rgba(255,255,255,.32);box-shadow:none;margin-top:10px;}
+#login .lk{display:block;margin-top:14px;font-size:12.5px;color:#bdf5fb;text-decoration:none;font-weight:600;}
+#login .tag{position:absolute;bottom:18px;left:0;right:0;text-align:center;font-size:10.5px;opacity:.6;z-index:2;}
 
 #select{background:var(--bg);}
-#select .hd{position:relative;overflow:hidden;color:#fff;padding:42px 22px 22px;
-  background:linear-gradient(135deg,var(--bioma),#16527e 60%,#1f8fae);}
+#select .hd{position:relative;overflow:hidden;color:#fff;padding:42px 22px 22px;background:linear-gradient(135deg,#141a8f,#1920c7 55%,#00e1ef);}
 body[data-mode="web"] #select .hd{padding:28px 22px 22px;}
 #select .hd .blob{position:absolute;width:160px;height:160px;border-radius:50%;background:rgba(255,255,255,.14);top:-70px;right:-30px;}
-#select .hd h2{margin:0;font-size:21px;font-weight:800;position:relative;z-index:2;letter-spacing:-.3px;}
-#select .hd p{margin:5px 0 0;font-size:12.8px;opacity:.86;position:relative;z-index:2;font-weight:500;}
-#select .body{padding:18px;overflow-y:auto;}
-#select .body .wrap{max-width:540px;margin:0 auto;}
-.depcard{position:relative;overflow:hidden;background:#fff;border:1px solid var(--line);border-radius:20px;padding:18px;margin-bottom:14px;
-  display:flex;align-items:center;gap:15px;cursor:pointer;box-shadow:var(--shadow);transition:transform .12s,box-shadow .2s;}
+#select .hd h2{margin:0;font-size:20px;font-weight:700;position:relative;z-index:2;}
+#select .hd p{margin:5px 0 0;font-size:12.6px;opacity:.86;position:relative;z-index:2;font-weight:500;}
+#select .body{padding:18px;overflow-y:auto;}#select .body .wrap{max-width:540px;margin:0 auto;}
+.depcard{position:relative;overflow:hidden;background:#fff;border:1px solid var(--line);border-radius:20px;padding:18px;margin-bottom:14px;display:flex;align-items:center;gap:15px;cursor:pointer;box-shadow:var(--shadow);transition:transform .12s,box-shadow .2s;}
 .depcard:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg);}
 .depcard:before{content:"";position:absolute;left:0;top:0;bottom:0;width:6px;background:var(--c);}
-.depcard .av{width:54px;height:54px;border-radius:17px;flex:none;background:linear-gradient(135deg,var(--c),var(--c2));color:#fff;
-  display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:800;box-shadow:0 10px 22px -8px var(--c);}
-.depcard .nm{font-size:16.5px;font-weight:800;letter-spacing:-.2px;}
-.depcard .sc{font-size:12.5px;color:var(--muted);font-weight:500;margin-top:2px;}
-.depcard .chev{margin-left:auto;color:#c2cad8;}
-.depcard .chev .ic{width:22px;height:22px;}
+.depcard .av{width:54px;height:54px;border-radius:17px;flex:none;background:linear-gradient(135deg,var(--c),var(--c2));color:#fff;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;box-shadow:0 10px 22px -8px var(--c);}
+.depcard .nm{font-size:16px;font-weight:700;}.depcard .sc{font-size:12.5px;color:var(--muted);font-weight:500;margin-top:2px;}
+.depcard .chev{margin-left:auto;color:#c2cad8;}.depcard .chev .ic{width:22px;height:22px;}
 
 /* OVERLAYS */
 .ovl{position:absolute;inset:0;z-index:70;background:rgba(11,22,34,.55);display:none;align-items:flex-end;backdrop-filter:blur(2px);}
@@ -339,43 +266,31 @@ body[data-mode="web"] .ovl.show{align-items:center;justify-content:center;}
 body[data-mode="web"] .sheet{max-width:440px;border-radius:22px;}
 @keyframes up{from{transform:translateY(50px);opacity:.5}to{transform:none;opacity:1}}
 .sheet .grab{width:44px;height:5px;border-radius:3px;background:#dde3ee;margin:6px auto 14px;}
-.sheet h3{margin:2px 0 4px;font-size:18px;font-weight:800;letter-spacing:-.3px;}
-.kv{display:flex;justify-content:space-between;font-size:13.5px;padding:9px 0;border-bottom:1px dashed var(--line);font-weight:500;}
-.kv span:first-child{color:var(--muted);}
-.kv b{font-weight:800;}
-.copybox{background:var(--accent-soft);border:1px dashed #b9d4ee;border-radius:12px;padding:11px 13px;font-size:11px;word-break:break-all;margin:12px 0;font-family:'Courier New',monospace;color:var(--accent-d);}
+.sheet h3{margin:2px 0 4px;font-size:17px;font-weight:700;}
+.kv{display:flex;justify-content:space-between;font-size:13.5px;padding:9px 0;border-bottom:1px dashed var(--line);font-weight:500;}.kv span:first-child{color:var(--muted);}.kv b{font-weight:700;}
+.copybox{background:var(--accent-soft);border:1px dashed #b9c6ee;border-radius:12px;padding:11px 13px;font-size:11px;word-break:break-all;margin:12px 0;font-family:'Courier New',monospace;color:var(--accent-d);}
 .pixwrap{display:flex;justify-content:center;margin:10px 0;}
-.pix{width:150px;height:150px;border-radius:16px;padding:10px;background:#fff;box-shadow:var(--shadow);
-  background-image:repeating-conic-gradient(#0d3b66 0% 25%,#fff 0% 50%);background-size:18px 18px;border:8px solid #fff;}
-.toast{position:absolute;bottom:96px;left:50%;transform:translateX(-50%) translateY(8px);background:#15233b;color:#fff;
-  padding:12px 20px;border-radius:30px;font-size:12.8px;font-weight:600;z-index:90;opacity:0;transition:.25s;pointer-events:none;box-shadow:var(--shadow-lg);display:flex;align-items:center;gap:8px;}
-.toast .ic{width:16px;height:16px;color:#5be0a0;}
+.pix{width:150px;height:150px;border-radius:16px;padding:10px;background:#fff;box-shadow:var(--shadow);background-image:repeating-conic-gradient(var(--accent-d) 0% 25%,#fff 0% 50%);background-size:18px 18px;border:8px solid #fff;}
+.toast{position:absolute;bottom:96px;left:50%;transform:translateX(-50%) translateY(8px);background:#15233b;color:#fff;padding:12px 20px;border-radius:30px;font-size:12.8px;font-weight:600;z-index:90;opacity:0;transition:.25s;pointer-events:none;box-shadow:var(--shadow-lg);display:flex;align-items:center;gap:8px;max-width:84%;}
+.toast .ic{width:16px;height:16px;color:#5be0a0;flex:none;}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
 .note{font-size:11.5px;color:var(--muted);background:#fff;border:1px solid var(--line);border-radius:13px;padding:11px 13px;margin:12px 0;font-weight:500;line-height:1.5;}
 .check{display:flex;gap:11px;align-items:flex-start;font-size:13px;margin:14px 2px;cursor:pointer;font-weight:500;}
 .check input{margin-top:2px;width:18px;height:18px;accent-color:var(--accent);}
 .success{text-align:center;padding:24px 8px;}
-.success .ok{width:74px;height:74px;border-radius:50%;background:linear-gradient(135deg,var(--ok),#34c98a);color:#fff;
-  display:flex;align-items:center;justify-content:center;margin:0 auto 14px;box-shadow:0 16px 36px -10px var(--ok);}
+.success .ok{width:74px;height:74px;border-radius:50%;background:linear-gradient(135deg,var(--ok),#34c98a);color:#fff;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;box-shadow:0 16px 36px -10px var(--ok);}
 .success .ok .ic{width:38px;height:38px;}
 
-/* ===== Dashboard 2 colunas (Web/Desktop) ===== */
+/* Dashboard 2 colunas (web) */
 #scr-home .dash, #scr-home .dcol{display:contents;}
 body[data-mode="web"] #scr-home .dash{display:grid;grid-template-columns:1.55fr 1fr;gap:20px;align-items:start;}
 body[data-mode="web"] #scr-home .dcol{display:flex;flex-direction:column;}
-/* ===== Visão Aluno: oculta itens exclusivos do responsável ===== */
 #device[data-role="aluno"] .only-resp{display:none!important;}
-/* ===== Botão alternativo do login (aluno) ===== */
-#login .loginbtn.alt{background:rgba(255,255,255,.14);color:#fff;border:1px solid rgba(255,255,255,.32);box-shadow:none;margin-top:10px;}
-/* ===== Celular real: app em tela cheia, sem moldura nem seletor ===== */
+
 @media (max-width:640px){
-  body{padding:0;}
-  #topbar{display:none;}
-  #stage{gap:0;width:100%;}
+  body{padding:0;}#topbar{display:none;}#stage{gap:0;width:100%;}
   #device{width:100vw;height:100vh;height:100dvh;max-height:none;border-radius:0;box-shadow:none;}
-  .notch{display:none;}
-  #sidenav{display:none!important;}
-  #bottomnav{display:flex!important;}
+  .notch{display:none;}#sidenav{display:none!important;}#bottomnav{display:flex!important;}
   body[data-mode="web"] .screen{max-width:none;margin:0;padding:16px 16px 100px;}
   body[data-mode="web"] #scr-home .dash{display:contents;}
 }
@@ -383,7 +298,6 @@ body[data-mode="web"] #scr-home .dcol{display:flex;flex-direction:column;}
 </head>
 <body data-mode="mobile">
 
-<!-- ICON SPRITE -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
 <symbol id="i-home" viewBox="0 0 24 24"><path d="M4 11l8-7 8 7"/><path d="M6 10v9h12v-9"/></symbol>
 <symbol id="i-grad" viewBox="0 0 24 24"><path d="M12 4 2 9l10 5 10-5-10-5z"/><path d="M6 11.5V16c0 1.2 2.7 2.6 6 2.6s6-1.4 6-2.6v-4.5"/></symbol>
@@ -394,7 +308,9 @@ body[data-mode="web"] #scr-home .dcol{display:flex;flex-direction:column;}
 <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></symbol>
 <symbol id="i-file" viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/><path d="M9 13h6M9 16.5h6"/></symbol>
 <symbol id="i-dl" viewBox="0 0 24 24"><path d="M12 4v10"/><path d="M8 11l4 4 4-4"/><path d="M5 19h14"/></symbol>
+<symbol id="i-up" viewBox="0 0 24 24"><path d="M12 20V9"/><path d="M8 12l4-4 4 4"/><path d="M5 5h14"/></symbol>
 <symbol id="i-link" viewBox="0 0 24 24"><path d="M9 12h6"/><path d="M10.5 8H8a4 4 0 000 8h2.5"/><path d="M13.5 8H16a4 4 0 010 8h-2.5"/></symbol>
+<symbol id="i-ext" viewBox="0 0 24 24"><path d="M14 5h5v5"/><path d="M19 5l-8 8"/><path d="M19 14v5H5V5h5"/></symbol>
 <symbol id="i-mega" viewBox="0 0 24 24"><path d="M4 10v4l10 4V6L4 10z"/><path d="M14 8.5a4 4 0 010 7"/></symbol>
 <symbol id="i-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8.5 12.5l2.4 2.4L15.5 10"/></symbol>
 <symbol id="i-checkbig" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></symbol>
@@ -408,71 +324,57 @@ body[data-mode="web"] #scr-home .dcol{display:flex;flex-direction:column;}
 <symbol id="i-edit" viewBox="0 0 24 24"><path d="M4 20l1-4L16 5l3 3L8 19l-4 1z"/><path d="M14 7l3 3"/></symbol>
 <symbol id="i-receipt" viewBox="0 0 24 24"><path d="M6 3h12v18l-2-1.4L14 21l-2-1.4L10 21l-2-1.4L6 21z"/><path d="M9 8h6M9 12h6"/></symbol>
 <symbol id="i-qr" viewBox="0 0 24 24"><rect x="4" y="4" width="6" height="6" rx="1.2"/><rect x="14" y="4" width="6" height="6" rx="1.2"/><rect x="4" y="14" width="6" height="6" rx="1.2"/><path d="M14 14h3v3M20 14v6h-6"/></symbol>
-<symbol id="i-leaf" viewBox="0 0 24 24"><path d="M4 20c0-9 7-14 16-14 0 9-5 16-14 16-1 0-2-.4-2-2z"/><path d="M9 15c2-3 5-5 8-6"/></symbol>
+<symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 20S4 15 4 9.5A3.5 3.5 0 0112 6a3.5 3.5 0 018 3.5C20 15 12 20 12 20z"/></symbol>
+<symbol id="i-idcard" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2.5"/><circle cx="8.5" cy="11" r="2"/><path d="M5.5 16c.5-1.5 1.7-2.2 3-2.2s2.5.7 3 2.2"/><path d="M14 9h4M14 12h4M14 15h2.5"/></symbol>
+<symbol id="i-book" viewBox="0 0 24 24"><path d="M5 5a2 2 0 012-2h11v16H7a2 2 0 00-2 2z"/><path d="M5 5v16"/></symbol>
+<symbol id="i-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.6 9.6a2.4 2.4 0 014.4 1.3c0 1.6-2 1.7-2 3.1"/><path d="M12 17h.01"/></symbol>
+<symbol id="i-handshake" viewBox="0 0 24 24"><path d="M3 12l4-4 5 4 5-4 4 4"/><path d="M7 12l3 3 3-3"/></symbol>
+<symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s7-6 7-11a7 7 0 10-14 0c0 5 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></symbol>
+<symbol id="i-doc2" viewBox="0 0 24 24"><path d="M7 3h7l4 4v14H7z"/><path d="M14 3v4h4"/><path d="M10 13l1.5 1.5L14.5 11"/></symbol>
 <symbol id="i-mobile" viewBox="0 0 24 24"><rect x="7" y="3" width="10" height="18" rx="2.5"/><path d="M11 17.5h2"/></symbol>
 <symbol id="i-desktop" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M9 20h6M12 16v4"/></symbol>
 <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></symbol>
 <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="10" rx="2.5"/><path d="M8 10V7a4 4 0 018 0v3"/></symbol>
 <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M4 7l8 6 8-6"/></symbol>
 <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
-<symbol id="i-handshake" viewBox="0 0 24 24"><path d="M3 12l4-4 5 4 5-4 4 4"/><path d="M7 12l3 3 3-3"/></symbol>
-<symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s7-6 7-11a7 7 0 10-14 0c0 5 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></symbol>
+<symbol id="i-phone" viewBox="0 0 24 24"><path d="M6 3h3l2 5-2 1a11 11 0 005 5l1-2 5 2v3a2 2 0 01-2 2A16 16 0 014 5a2 2 0 012-2z"/></symbol>
 </defs></svg>
 
 <div id="topbar">
-  <div>
-    <div class="ti">Portal do Aluno e da Família · Bioma Educação</div>
-    <div class="ts">Protótipo navegável · escolha a visualização</div>
-  </div>
+  <div><div class="ti">Portal do Aluno e da Família · Bioma Educação</div><div class="ts">Protótipo navegável · identidade fiel aos manuais de marca</div></div>
   <div class="spacer"></div>
-  <div id="seg">
-    <button class="on" data-m="mobile" onclick="setMode('mobile')"><svg class="ic"><use href="#i-mobile"/></svg> Mobile</button>
-    <button data-m="web" onclick="setMode('web')"><svg class="ic"><use href="#i-desktop"/></svg> Web</button>
-  </div>
+  <div id="seg"><button class="on" data-m="mobile" onclick="setMode('mobile')"><svg class="ic"><use href="#i-mobile"/></svg> Mobile</button><button data-m="web" onclick="setMode('web')"><svg class="ic"><use href="#i-desktop"/></svg> Web</button></div>
   <button class="about" onclick="openOvl('ov-sobre')"><svg class="ic"><use href="#i-info"/></svg> Sobre</button>
 </div>
 
 <div id="stage">
-
   <aside id="aside">
-    <div class="card">
-      <h2>Personas</h2>
-      <div class="persona"><div class="pav" style="background:linear-gradient(135deg,#0d3b66,#2a93d8)">P</div><div><b>Patrícia</b> — responsável (pedagógica + financeira)</div></div>
-      <div class="persona"><div class="pav" style="background:linear-gradient(135deg,#0c7d70,#34c9b0)">H</div><div><b>Helena</b>, 7º ano — Escola da Vila</div></div>
-      <div class="persona"><div class="pav" style="background:linear-gradient(135deg,#c24f1c,#ff8d4e)">T</div><div><b>Theo</b>, 3º ano — Colégio Apoio</div></div>
+    <div class="card"><h2>Personas</h2>
+      <div class="persona"><div class="pav" style="background:linear-gradient(135deg,#1920c7,#00e1ef)">P</div><div><b>Patrícia</b> — responsável (pedagógica + financeira)</div></div>
+      <div class="persona"><div class="pav" style="background:linear-gradient(135deg,#1D2362,#584294)">H</div><div><b>Helena</b>, 7º ano — Escola da Vila</div></div>
+      <div class="persona"><div class="pav" style="background:linear-gradient(135deg,#00843d,#43b02a)">T</div><div><b>Theo</b>, 5º ano — Escola Parque</div></div>
     </div>
-    <div class="card">
-      <h2>Princípios de design</h2>
-      <ul>
-        <li>Mobile-first / PWA</li>
-        <li>Financeiro e comunicação em 1º plano</li>
-        <li>Cada escola, um tema (multi-escola)</li>
-        <li>Uma ação principal por tela</li>
-        <li>Confiança &amp; LGPD (dados de menores)</li>
-      </ul>
+    <div class="card"><h2>Marcas (fiéis aos manuais)</h2>
+      <p><span class="sw" style="background:linear-gradient(135deg,#00e1ef,#1920c7)"></span><b>Bioma</b> — ciano→índigo · Comfortaa</p>
+      <p><span class="sw" style="background:#1D2362"></span><b>Vila</b> — índigo + multicor · Ainslie (≈Quicksand)</p>
+      <p><span class="sw" style="background:#00843d"></span><b>Parque</b> — verde/multicor · Avenir (≈Jost)</p>
     </div>
-    <div class="card">
-      <h2>Como navegar</h2>
-      <p>Use o seletor acima para alternar entre <b>Mobile</b> e <b>Web</b>. Faça <b>Entrar</b> → escolha um filho → o tema muda por escola.</p>
-      <p><span class="swatch" style="background:#0d3b66"></span>Bioma <span class="swatch" style="background:#12a594;margin-left:8px"></span>Vila <span class="swatch" style="background:#ef6a2e;margin-left:8px"></span>Apoio</p>
-      <p class="foot">Dados fictícios · identidade provisória até o Manual da Marca.</p>
+    <div class="card"><h2>Como navegar</h2>
+      <p>Seletor acima alterna <b>Mobile</b>/<b>Web</b>. <b>Entrar</b> → escolha um filho → a identidade muda para a marca da escola.</p>
+      <p class="foot">v1.1 — inclui matrícula, ficha médica, documentos, autorizações, NF-e/quitação, serviços externos, livros e atendimento. Dados fictícios; fontes de marca aproximadas (Ainslie/Avenir são licenciadas).</p>
     </div>
   </aside>
 
-  <div id="device" data-school="vila">
+  <div id="device" data-school="bioma" data-role="resp">
     <div class="notch"></div>
-    <div class="browserbar">
-      <span class="dot" style="background:#ff5f57"></span><span class="dot" style="background:#febc2e"></span><span class="dot" style="background:#28c840"></span>
-      <span class="url"><svg class="ic"><use href="#i-lock"/></svg> portal.biomaeducacao.com.br</span>
-    </div>
+    <div class="browserbar"><span class="dot" style="background:#ff5f57"></span><span class="dot" style="background:#febc2e"></span><span class="dot" style="background:#28c840"></span><span class="url"><svg class="ic"><use href="#i-lock"/></svg> portal.biomaeducacao.com.br</span></div>
 
     <!-- LOGIN -->
     <div id="login" class="fs show">
       <div class="blob l1"></div><div class="blob l2"></div>
       <div class="inner">
-        <div class="mark">be</div>
-        <h1>Bioma Educação</h1>
-        <div class="sub">Portal do Aluno e da Família</div>
+        <div class="logo"><div class="word">bioma</div><div class="sub">educação</div></div>
+        <div class="tagline">Portal do Aluno e da Família</div>
         <div class="field"><svg class="ic"><use href="#i-mail"/></svg><input type="text" value="patricia.souza@email.com"></div>
         <div class="field"><svg class="ic"><use href="#i-lock"/></svg><input type="password" value="••••••••"></div>
         <button class="loginbtn" onclick="enterResp()">Entrar como responsável <svg class="ic" style="width:18px;height:18px"><use href="#i-chev"/></svg></button>
@@ -480,16 +382,16 @@ body[data-mode="web"] #scr-home .dcol{display:flex;flex-direction:column;}
         <a class="lk" href="javascript:void(0)" onclick="enterResp()">Esqueci minha senha</a>
         <a class="lk" href="javascript:void(0)" onclick="openOvl('ov-sobre')">Sobre este protótipo</a>
       </div>
-      <div class="tag">Identidade visual provisória · ambiente de demonstração</div>
+      <div class="tag">Marca aplicada conforme o Guia de Marca · ambiente de demonstração</div>
     </div>
 
     <!-- SELECT -->
     <div id="select" class="fs">
       <div class="hd"><div class="blob"></div><h2>Olá, Patrícia 👋</h2><p>Selecione de qual filho(a) você quer ver as informações.</p></div>
       <div class="body"><div class="wrap">
-        <div class="depcard" style="--c:#0c7d70;--c2:#34c9b0" onclick="pick('vila')"><div class="av">H</div><div><div class="nm">Helena Souza</div><div class="sc">7º ano B · Escola da Vila</div></div><div class="chev"><svg class="ic"><use href="#i-chev"/></svg></div></div>
-        <div class="depcard" style="--c:#c24f1c;--c2:#ff8d4e" onclick="pick('apoio')"><div class="av">T</div><div><div class="nm">Theo Souza</div><div class="sc">3º ano A · Colégio Apoio</div></div><div class="chev"><svg class="ic"><use href="#i-chev"/></svg></div></div>
-        <div class="note">Uma única conta reúne filhos de escolas diferentes do grupo Bioma. Cada contexto adota a identidade da escola.</div>
+        <div class="depcard" style="--c:#1D2362;--c2:#584294" onclick="pick('vila')"><div class="av">H</div><div><div class="nm">Helena Souza</div><div class="sc">7º ano B · Escola da Vila</div></div><div class="chev"><svg class="ic"><use href="#i-chev"/></svg></div></div>
+        <div class="depcard" style="--c:#00843d;--c2:#43b02a" onclick="pick('parque')"><div class="av">T</div><div><div class="nm">Theo Souza</div><div class="sc">5º ano A · Escola Parque</div></div><div class="chev"><svg class="ic"><use href="#i-chev"/></svg></div></div>
+        <div class="note">Uma única conta reúne filhos de escolas diferentes do grupo Bioma. Cada contexto adota a identidade visual da escola, conforme seu manual de marca.</div>
       </div></div>
     </div>
 
@@ -497,10 +399,8 @@ body[data-mode="web"] #scr-home .dcol{display:flex;flex-direction:column;}
     <div id="appwrap">
       <div id="appbar">
         <div class="blob b1"></div><div class="blob b2"></div>
-        <svg class="leaf"><use href="#i-leaf"/></svg>
         <div class="toprow">
-          <div class="logo">be</div>
-          <div class="school">Bioma · <span class="ctx-escola">Escola da Vila</span><b class="ctx-nome">Helena Souza</b></div>
+          <div class="brandmark"><div class="school ctx-escola">Escola da Vila</div><div class="holding">Bioma Educação</div></div>
           <div class="spacer"></div>
           <button class="iconbtn" onclick="goTab('scr-avisos')"><svg class="ic"><use href="#i-bell"/></svg><span class="nbadge"></span></button>
           <div class="avatar ctx-avatar">P</div>
@@ -528,367 +428,404 @@ body[data-mode="web"] #scr-home .dcol{display:flex;flex-direction:column;}
           <button data-screen="scr-agenda" onclick="go('scr-agenda')"><svg class="ic"><use href="#i-pin"/></svg> Agenda / recados</button>
           <div class="grp only-resp">Financeiro</div>
           <button class="only-resp" data-screen="scr-financeiro" onclick="go('scr-financeiro')"><svg class="ic"><use href="#i-wallet"/></svg> Mensalidades</button>
-          <button class="only-resp" data-screen="scr-ir" onclick="go('scr-ir')"><svg class="ic"><use href="#i-receipt"/></svg> Demonstrativo IR</button>
-          <div class="grp">Secretaria</div>
+          <button class="only-resp" data-screen="scr-docrel" onclick="go('scr-docrel')"><svg class="ic"><use href="#i-receipt"/></svg> Documentos &amp; NF</button>
+          <div class="grp only-resp">Matrícula e Secretaria</div>
           <button class="only-resp" data-screen="scr-rematricula" onclick="go('scr-rematricula')"><svg class="ic"><use href="#i-edit"/></svg> Rematrícula</button>
+          <button class="only-resp" data-screen="scr-ficha" onclick="go('scr-ficha')"><svg class="ic"><use href="#i-heart"/></svg> Ficha médica</button>
+          <button class="only-resp" data-screen="scr-docs" onclick="go('scr-docs')"><svg class="ic"><use href="#i-up"/></svg> Documentos</button>
+          <button class="only-resp" data-screen="scr-autoriz" onclick="go('scr-autoriz')"><svg class="ic"><use href="#i-idcard"/></svg> Autorizações de saída</button>
           <button data-screen="scr-requerimentos" onclick="go('scr-requerimentos')"><svg class="ic"><use href="#i-file"/></svg> Requerimentos</button>
+          <div class="grp">Serviços</div>
+          <button data-screen="scr-servicos" onclick="go('scr-servicos')"><svg class="ic"><use href="#i-ext"/></svg> Serviços externos</button>
+          <button data-screen="scr-livros" onclick="go('scr-livros')"><svg class="ic"><use href="#i-book"/></svg> Livros didáticos</button>
+          <button data-screen="scr-atend" onclick="go('scr-atend')"><svg class="ic"><use href="#i-help"/></svg> Atendimento &amp; ajuda</button>
           <div class="grp">Conta</div>
           <button data-screen="scr-conta" onclick="go('scr-conta')"><svg class="ic"><use href="#i-user"/></svg> Minha conta</button>
-          <button class="only-resp" onclick="openOvl('ov-trocar')"><svg class="ic"><use href="#i-swap"/></svg> Trocar dependente</button>
+          <button onclick="openOvl('ov-trocar')"><svg class="ic"><use href="#i-swap"/></svg> Trocar dependente</button>
           <button onclick="logout()"><svg class="ic"><use href="#i-logout"/></svg> Sair</button>
         </nav>
 
-        <div id="maincol">
-          <div id="screens">
+        <div id="maincol"><div id="screens">
 
-            <!-- HOME -->
-            <div id="scr-home" class="screen active">
-              <div class="pagehead"><h2>Olá, <span class="ctx-user">Patrícia</span> 👋</h2><p class="ctx-sub">Acompanhe <span class="ctx-nome">Helena</span> · <span class="ctx-escola">Escola da Vila</span></p></div>
-
-              <div class="dash">
-                <div class="dcol">
-                  <div class="feature tap only-resp" onclick="go('scr-financeiro')">
-                    <div class="blob"></div>
-                    <div class="lbl">Mensalidade de junho/2026</div>
-                    <div class="big">R$ 2.480,00</div>
-                    <div class="ftrow"><span class="pill" style="background:rgba(255,255,255,.22);color:#fff"><svg class="ic"><use href="#i-clock"/></svg> vence em 5 dias</span>
-                      <span class="cta">2ª via / PIX <svg class="ic"><use href="#i-chev"/></svg></span></div>
-                  </div>
-
-                  <div class="stats">
-                    <div class="stat">
-                      <div class="ring"><svg viewBox="0 0 84 84"><circle class="rt" cx="42" cy="42" r="34"/><circle class="rp" cx="42" cy="42" r="34" stroke-dasharray="213.6" stroke-dashoffset="213.6" data-off="12.8"/></svg><div class="rv"><b>94%</b><span>freq.</span></div></div>
-                      <div class="col"><div class="v">Ótima</div><div class="k">Frequência geral</div></div>
-                    </div>
-                    <div class="stat">
-                      <div class="chip-ic grad"><svg class="ic"><use href="#i-cal"/></svg></div>
-                      <div class="col"><div class="v">23/06</div><div class="k">Prova de Matemática</div></div>
-                    </div>
-                  </div>
-
-                  <h3 class="sec">Acesso rápido</h3>
-                  <div class="quick">
-                    <div class="qa" onclick="go('scr-boletim')"><div class="chip-ic"><svg class="ic"><use href="#i-grad"/></svg></div><div class="t">Boletim</div></div>
-                    <div class="qa" onclick="go('scr-freq')"><div class="chip-ic"><svg class="ic"><use href="#i-check"/></svg></div><div class="t">Frequência</div></div>
-                    <div class="qa" onclick="go('scr-horario')"><div class="chip-ic"><svg class="ic"><use href="#i-clock"/></svg></div><div class="t">Horário</div></div>
-                    <div class="qa only-resp" onclick="go('scr-rematricula')"><div class="chip-ic"><svg class="ic"><use href="#i-edit"/></svg></div><div class="t">Rematrícula</div></div>
-                  </div>
+          <!-- HOME -->
+          <div id="scr-home" class="screen active">
+            <div class="pagehead"><h2>Olá, <span class="ctx-user">Patrícia</span> 👋</h2><p class="ctx-sub">Acompanhe <span class="ctx-nome">Helena</span> · <span class="ctx-escola">Escola da Vila</span></p></div>
+            <div class="dash">
+              <div class="dcol">
+                <div class="feature tap only-resp" onclick="go('scr-financeiro')">
+                  <div class="blob"></div><div class="lbl">Mensalidade de junho/2026</div><div class="big">R$ 2.480,00</div>
+                  <div class="ftrow"><span class="pill" style="background:rgba(255,255,255,.22);color:#fff"><svg class="ic"><use href="#i-clock"/></svg> vence em 5 dias</span><span class="cta">2ª via / PIX <svg class="ic"><use href="#i-chev"/></svg></span></div>
                 </div>
-
-                <div class="dcol">
-                  <h3 class="sec">Avisos recentes</h3>
-                  <div class="list">
-                    <div class="li" onclick="go('scr-avisos')"><div class="chip-ic"><svg class="ic"><use href="#i-mega"/></svg></div><div><div class="tt">Reunião de pais — 26/06</div><div class="ds">Escola da Vila · há 2 h</div></div><div class="rt"><span class="pill p-dan">novo</span></div></div>
-                    <div class="li" onclick="go('scr-avisos')"><div class="chip-ic"><svg class="ic"><use href="#i-pin"/></svg></div><div><div class="tt">Lista de materiais 2º semestre</div><div class="ds">Coordenação · ontem</div></div><div class="go"><svg class="ic"><use href="#i-chev"/></svg></div></div>
-                  </div>
-
-                  <h3 class="sec">Próximos eventos</h3>
-                  <div class="list">
-                    <div class="li" onclick="go('scr-calendario')"><div class="chip-ic"><svg class="ic"><use href="#i-cal"/></svg></div><div><div class="tt">Prova de Matemática</div><div class="ds">Terça, 23/06 · 8h</div></div><div class="rt"><span class="pill p-acc">prova</span></div></div>
-                    <div class="li" onclick="go('scr-calendario')"><div class="chip-ic"><svg class="ic"><use href="#i-edit"/></svg></div><div><div class="tt">Entrega — História</div><div class="ds">Sexta, 26/06</div></div><div class="rt"><span class="pill p-mut">tarefa</span></div></div>
-                  </div>
+                <div class="stats">
+                  <div class="stat"><div class="ring"><svg viewBox="0 0 84 84"><circle class="rt" cx="42" cy="42" r="34"/><circle class="rp" cx="42" cy="42" r="34" stroke-dasharray="213.6" stroke-dashoffset="213.6" data-off="12.8"/></svg><div class="rv"><b>94%</b><span>freq.</span></div></div><div class="col"><div class="v">Ótima</div><div class="k">Frequência geral</div></div></div>
+                  <div class="stat"><div class="chip-ic grad"><svg class="ic"><use href="#i-cal"/></svg></div><div class="col"><div class="v">23/06</div><div class="k">Prova de Matemática</div></div></div>
+                </div>
+                <h3 class="sec">Acesso rápido</h3>
+                <div class="quick">
+                  <div class="qa" onclick="go('scr-boletim')"><div class="chip-ic ic-magenta"><svg class="ic"><use href="#i-grad"/></svg></div><div class="t">Boletim</div></div>
+                  <div class="qa" onclick="go('scr-freq')"><div class="chip-ic ic-teal"><svg class="ic"><use href="#i-check"/></svg></div><div class="t">Frequência</div></div>
+                  <div class="qa" onclick="go('scr-docrel')"><div class="chip-ic ic-orange only-resp"><svg class="ic"><use href="#i-receipt"/></svg></div><div class="t only-resp">Documentos</div></div>
+                  <div class="qa only-resp" onclick="go('scr-rematricula')"><div class="chip-ic ic-lime"><svg class="ic"><use href="#i-edit"/></svg></div><div class="t">Rematrícula</div></div>
+                </div>
+              </div>
+              <div class="dcol">
+                <h3 class="sec">Avisos recentes</h3>
+                <div class="list">
+                  <div class="li" onclick="go('scr-avisos')"><div class="chip-ic ic-blue"><svg class="ic"><use href="#i-mega"/></svg></div><div><div class="tt">Reunião de pais — 26/06</div><div class="ds">Escola da Vila · há 2 h</div></div><div class="rt"><span class="pill p-dan">novo</span></div></div>
+                  <div class="li" onclick="go('scr-avisos')"><div class="chip-ic ic-pink"><svg class="ic"><use href="#i-pin"/></svg></div><div><div class="tt">Lista de materiais 2º sem.</div><div class="ds">Coordenação · ontem</div></div><div class="go"><svg class="ic"><use href="#i-chev"/></svg></div></div>
+                </div>
+                <h3 class="sec">Próximos eventos</h3>
+                <div class="list">
+                  <div class="li" onclick="go('scr-calendario')"><div class="chip-ic ic-purple"><svg class="ic"><use href="#i-cal"/></svg></div><div><div class="tt">Prova de Matemática</div><div class="ds">Terça, 23/06 · 8h</div></div><div class="rt"><span class="pill p-acc">prova</span></div></div>
+                  <div class="li" onclick="go('scr-calendario')"><div class="chip-ic ic-yellow"><svg class="ic"><use href="#i-edit"/></svg></div><div><div class="tt">Entrega — História</div><div class="ds">Sexta, 26/06</div></div><div class="rt"><span class="pill p-mut">tarefa</span></div></div>
                 </div>
               </div>
             </div>
+          </div>
 
-            <!-- BOLETIM -->
-            <div id="scr-boletim" class="screen">
-              <div class="subhead"><button class="backbtn" onclick="back()"><svg class="ic"><use href="#i-back"/></svg></button><h2>Boletim e notas</h2></div>
-              <div class="card" style="display:flex;align-items:center;gap:16px">
-                <div class="ring"><svg viewBox="0 0 84 84"><circle class="rt" cx="42" cy="42" r="34"/><circle class="rp" cx="42" cy="42" r="34" stroke-dasharray="213.6" stroke-dashoffset="213.6" data-off="22"/></svg><div class="rv"><b>8,6</b><span>média</span></div></div>
-                <div><div class="tt" style="font-size:16px">2º trimestre</div><div class="ds"><span class="ctx-nome">Helena</span> · 6 disciplinas</div><span class="pill p-ok" style="margin-top:8px"><svg class="ic"><use href="#i-check"/></svg> em dia</span></div>
-              </div>
-              <div class="card">
-                <div class="gbar"><div class="gtop">Português <b>8,8</b></div><div class="track"><i style="width:88%"></i></div></div>
-                <div class="gbar"><div class="gtop">Matemática <b>7,4</b></div><div class="track"><i style="width:74%"></i></div></div>
-                <div class="gbar"><div class="gtop">História <b>9,4</b></div><div class="track"><i style="width:94%"></i></div></div>
-                <div class="gbar"><div class="gtop">Geografia <b>8,2</b></div><div class="track"><i style="width:82%"></i></div></div>
-                <div class="gbar"><div class="gtop">Ciências <b>8,9</b></div><div class="track"><i style="width:89%"></i></div></div>
-                <div class="gbar" style="margin-bottom:0"><div class="gtop">Inglês <b>9,2</b></div><div class="track"><i style="width:92%"></i></div></div>
-              </div>
-              <button class="btn ghost" onclick="toast('Gerando boletim em PDF…')"><svg class="ic"><use href="#i-dl"/></svg> Baixar boletim (PDF)</button>
-              <div class="note">Exibe apenas as notas liberadas pela escola. Origem: TOTVS RM (somente leitura).</div>
+          <!-- BOLETIM -->
+          <div id="scr-boletim" class="screen">
+            <div class="subhead"><button class="backbtn" onclick="back()"><svg class="ic"><use href="#i-back"/></svg></button><h2>Boletim e notas</h2></div>
+            <div class="card" style="display:flex;align-items:center;gap:16px"><div class="ring"><svg viewBox="0 0 84 84"><circle class="rt" cx="42" cy="42" r="34"/><circle class="rp" cx="42" cy="42" r="34" stroke-dasharray="213.6" stroke-dashoffset="213.6" data-off="22"/></svg><div class="rv"><b>8,6</b><span>média</span></div></div><div><div class="tt" style="font-size:16px">2º trimestre</div><div class="ds"><span class="ctx-nome">Helena</span> · 6 disciplinas</div><span class="pill p-ok" style="margin-top:8px"><svg class="ic"><use href="#i-check"/></svg> em dia</span></div></div>
+            <div class="card">
+              <div class="gbar"><div class="gtop">Português <b>8,8</b></div><div class="track"><i style="width:88%"></i></div></div>
+              <div class="gbar"><div class="gtop">Matemática <b>7,4</b></div><div class="track"><i style="width:74%"></i></div></div>
+              <div class="gbar"><div class="gtop">História <b>9,4</b></div><div class="track"><i style="width:94%"></i></div></div>
+              <div class="gbar"><div class="gtop">Ciências <b>8,9</b></div><div class="track"><i style="width:89%"></i></div></div>
+              <div class="gbar" style="margin-bottom:0"><div class="gtop">Inglês <b>9,2</b></div><div class="track"><i style="width:92%"></i></div></div>
             </div>
+            <button class="btn ghost" onclick="toast('Emitindo boletim (RM Reports) em PDF…')"><svg class="ic"><use href="#i-dl"/></svg> Baixar boletim (PDF)</button>
+            <div class="note">Boletim oficial emitido pelo RM Reports, no layout da escola. Origem: TOTVS RM.</div>
+          </div>
 
-            <!-- FREQUÊNCIA -->
-            <div id="scr-freq" class="screen">
-              <div class="subhead"><button class="backbtn" onclick="back()"><svg class="ic"><use href="#i-back"/></svg></button><h2>Frequência e faltas</h2></div>
-              <div class="feature">
-                <div class="blob"></div>
-                <div class="lbl">Frequência geral</div>
-                <div class="big">94%</div>
-                <div class="ftrow"><span class="pill" style="background:rgba(255,255,255,.22);color:#fff">Limite mínimo: 75%</span></div>
-              </div>
-              <div class="card">
-                <div class="gbar"><div class="gtop">Português · 96% <b>3 faltas</b></div><div class="track"><i style="width:96%"></i></div></div>
-                <div class="gbar"><div class="gtop">Matemática · 92% <b>5 faltas</b></div><div class="track"><i style="width:92%"></i></div></div>
-                <div class="gbar" style="margin-bottom:0"><div class="gtop" style="color:var(--warn)">Educação Física · 82% <b>9 faltas</b></div><div class="track low"><i style="width:82%"></i></div></div>
-              </div>
-              <div class="card" style="border-color:#f0dba8;background:#fffdf5">
-                <div class="row"><div class="chip-ic" style="background:var(--warnbg);color:var(--warn)"><svg class="ic"><use href="#i-alert"/></svg></div>
-                <div><div class="tt">Atenção em Educação Física</div><div class="ds">Aproximando-se do limite de faltas.</div></div></div>
-              </div>
+          <!-- FREQUÊNCIA -->
+          <div id="scr-freq" class="screen">
+            <div class="subhead"><button class="backbtn" onclick="back()"><svg class="ic"><use href="#i-back"/></svg></button><h2>Frequência e faltas</h2></div>
+            <div class="feature"><div class="blob"></div><div class="lbl">Frequência geral</div><div class="big">94%</div><div class="ftrow"><span class="pill" style="background:rgba(255,255,255,.22);color:#fff">Limite mínimo: 75%</span></div></div>
+            <div class="card">
+              <div class="gbar"><div class="gtop">Português · 96% <b>3 faltas</b></div><div class="track"><i style="width:96%"></i></div></div>
+              <div class="gbar"><div class="gtop">Matemática · 92% <b>5 faltas</b></div><div class="track"><i style="width:92%"></i></div></div>
+              <div class="gbar" style="margin-bottom:0"><div class="gtop" style="color:var(--warn)">Educação Física · 82% <b>9 faltas</b></div><div class="track low"><i style="width:82%"></i></div></div>
             </div>
+            <div class="card" style="border-color:#f0dba8;background:#fffdf5"><div class="row"><div class="chip-ic" style="background:var(--warnbg);color:var(--warn)"><svg class="ic"><use href="#i-alert"/></svg></div><div><div class="tt">Atenção em Educação Física</div><div class="ds">Aproximando-se do limite de faltas.</div></div></div></div>
+          </div>
 
-            <!-- HORÁRIO -->
-            <div id="scr-horario" class="screen">
-              <div class="subhead"><button class="backbtn" onclick="back()"><svg class="ic"><use href="#i-back"/></svg></button><h2>Horário de aulas</h2></div>
-              <div class="card">
-                <div class="muted" style="margin-bottom:12px"><span class="ctx-serie">7º ano B</span> · semana atual</div>
-                <div class="week">
-                  <div class="d">SEG</div><div class="d">TER</div><div class="d">QUA</div><div class="d">QUI</div><div class="d">SEX</div>
-                  <div class="c"><b>Port.</b><span>7h30</span></div><div class="c"><b>Mat.</b><span>7h30</span></div><div class="c"><b>Hist.</b><span>7h30</span></div><div class="c"><b>Ciên.</b><span>7h30</span></div><div class="c"><b>Ed.Fís.</b><span>7h30</span></div>
-                  <div class="c"><b>Mat.</b><span>8h20</span></div><div class="c"><b>Geo.</b><span>8h20</span></div><div class="c"><b>Port.</b><span>8h20</span></div><div class="c"><b>Ingl.</b><span>8h20</span></div><div class="c"><b>Arte</b><span>8h20</span></div>
-                  <div class="c"><b>Ingl.</b><span>9h30</span></div><div class="c"><b>Ciên.</b><span>9h30</span></div><div class="c"><b>Mat.</b><span>9h30</span></div><div class="c"><b>Hist.</b><span>9h30</span></div><div class="c"><b>Geo.</b><span>9h30</span></div>
-                </div>
-              </div>
-              <button class="btn ghost" onclick="go('scr-calendario')"><svg class="ic"><use href="#i-cal"/></svg> Ver calendário escolar</button>
+          <!-- HORÁRIO -->
+          <div id="scr-horario" class="screen">
+            <div class="subhead"><button class="backbtn" onclick="back()"><svg class="ic"><use href="#i-back"/></svg></button><h2>Horário de aulas</h2></div>
+            <div class="card"><div class="muted" style="margin-bottom:12px"><span class="ctx-serie">7º ano B</span> · semana atual</div>
+              <div class="week"><div class="d">SEG</div><div class="d">TER</div><div class="d">QUA</div><div class="d">QUI</div><div class="d">SEX</div>
+                <div class="c"><b>Port.</b><span>7h30</span></div><div class="c"><b>Mat.</b><span>7h30</span></div><div class="c"><b>Hist.</b><span>7h30</span></div><div class="c"><b>Ciên.</b><span>7h30</span></div><div class="c"><b>Ed.Fís.</b><span>7h30</span></div>
+                <div class="c"><b>Mat.</b><span>8h20</span></div><div class="c"><b>Geo.</b><span>8h20</span></div><div class="c"><b>Port.</b><span>8h20</span></div><div class="c"><b>Ingl.</b><span>8h20</span></div><div class="c"><b>Arte</b><span>8h20</span></div>
+                <div class="c"><b>Ingl.</b><span>9h30</span></div><div class="c"><b>Ciên.</b><span>9h30</span></div><div class="c"><b>Mat.</b><span>9h30</span></div><div class="c"><b>Hist.</b><span>9h30</span></div><div class="c"><b>Geo.</b><span>9h30</span></div>
+              </div></div>
+            <button class="btn ghost" onclick="go('scr-calendario')"><svg class="ic"><use href="#i-cal"/></svg> Ver calendário escolar</button>
+          </div>
+
+          <!-- CALENDÁRIO -->
+          <div id="scr-calendario" class="screen">
+            <div class="subhead"><button class="backbtn" onclick="back()"><svg class="ic"><use href="#i-back"/></svg></button><h2>Calendário escolar</h2></div>
+            <h3 class="sec">Junho / 2026</h3>
+            <div class="list">
+              <div class="li"><div class="chip-ic ic-purple"><svg class="ic"><use href="#i-cal"/></svg></div><div><div class="tt">Prova de Matemática</div><div class="ds">Ter, 23/06 · 8h</div></div><div class="rt"><span class="pill p-acc">prova</span></div></div>
+              <div class="li"><div class="chip-ic ic-yellow"><svg class="ic"><use href="#i-edit"/></svg></div><div><div class="tt">Entrega — História</div><div class="ds">Sex, 26/06</div></div><div class="rt"><span class="pill p-mut">tarefa</span></div></div>
+              <div class="li"><div class="chip-ic ic-blue"><svg class="ic"><use href="#i-mega"/></svg></div><div><div class="tt">Reunião de pais e mestres</div><div class="ds">Sex, 26/06 · 19h</div></div><div class="rt"><span class="pill p-ok">evento</span></div></div>
+              <div class="li"><div class="chip-ic ic-lime"><svg class="ic"><use href="#i-pin"/></svg></div><div><div class="tt">Recesso escolar</div><div class="ds">29/06 a 03/07</div></div><div class="rt"><span class="pill p-mut">feriado</span></div></div>
             </div>
+          </div>
 
-            <!-- CALENDÁRIO -->
-            <div id="scr-calendario" class="screen">
-              <div class="subhead"><button class="backbtn" onclick="back()"><svg class="ic"><use href="#i-back"/></svg></button><h2>Calendário escolar</h2></div>
-              <h3 class="sec">Junho / 2026</h3>
-              <div class="list">
-                <div class="li"><div class="chip-ic"><svg class="ic"><use href="#i-cal"/></svg></div><div><div class="tt">Prova de Matemática</div><div class="ds">Ter, 23/06 · 8h</div></div><div class="rt"><span class="pill p-acc">prova</span></div></div>
-                <div class="li"><div class="chip-ic"><svg class="ic"><use href="#i-edit"/></svg></div><div><div class="tt">Entrega de trabalho — História</div><div class="ds">Sex, 26/06</div></div><div class="rt"><span class="pill p-mut">tarefa</span></div></div>
-                <div class="li"><div class="chip-ic"><svg class="ic"><use href="#i-mega"/></svg></div><div><div class="tt">Reunião de pais e mestres</div><div class="ds">Sex, 26/06 · 19h</div></div><div class="rt"><span class="pill p-ok">evento</span></div></div>
-                <div class="li"><div class="chip-ic"><svg class="ic"><use href="#i-leaf"/></svg></div><div><div class="tt">Recesso escolar</div><div class="ds">29/06 a 03/07</div></div><div class="rt"><span class="pill p-mut">feriado</span></div></div>
-              </div>
+          <!-- MATERIAIS -->
+          <div id="scr-materiais" class="screen">
+            <div class="subhead"><button class="backbtn" onclick="back()"><svg class="ic"><use href="#i-back"/></svg></button><h2>Materiais e conteúdos</h2></div>
+            <div class="list">
+              <div class="li" onclick="toast('Baixando arquivo…')"><div class="chip-ic ic-magenta"><svg class="ic"><use href="#i-file"/></svg></div><div><div class="tt">História — Brasil Colônia</div><div class="ds">PDF · 1,2 MB · 18/06</div></div><div class="go"><svg class="ic"><use href="#i-dl"/></svg></div></div>
+              <div class="li" onclick="toast('Baixando arquivo…')"><div class="chip-ic ic-blue"><svg class="ic"><use href="#i-file"/></svg></div><div><div class="tt">Matemática — Lista 4</div><div class="ds">PDF · 680 KB · 17/06</div></div><div class="go"><svg class="ic"><use href="#i-dl"/></svg></div></div>
+              <div class="li" onclick="toast('Abrindo link…')"><div class="chip-ic ic-teal"><svg class="ic"><use href="#i-link"/></svg></div><div><div class="tt">Ciências — Vídeo: ecossistemas</div><div class="ds">Link · 16/06</div></div><div class="go"><svg class="ic"><use href="#i-chev"/></svg></div></div>
             </div>
+          </div>
 
-            <!-- MATERIAIS -->
-            <div id="scr-materiais" class="screen">
-              <div class="subhead"><button class="backbtn" onclick="back()"><svg class="ic"><use href="#i-back"/></svg></button><h2>Materiais e conteúdos</h2></div>
-              <div class="list">
-                <div class="li" onclick="toast('Baixando arquivo…')"><div class="chip-ic"><svg class="ic"><use href="#i-file"/></svg></div><div><div class="tt">História — Brasil Colônia</div><div class="ds">PDF · 1,2 MB · 18/06</div></div><div class="go"><svg class="ic"><use href="#i-dl"/></svg></div></div>
-                <div class="li" onclick="toast('Baixando arquivo…')"><div class="chip-ic"><svg class="ic"><use href="#i-file"/></svg></div><div><div class="tt">Matemática — Lista 4</div><div class="ds">PDF · 680 KB · 17/06</div></div><div class="go"><svg class="ic"><use href="#i-dl"/></svg></div></div>
-                <div class="li" onclick="toast('Abrindo link…')"><div class="chip-ic"><svg class="ic"><use href="#i-link"/></svg></div><div><div class="tt">Ciências — Vídeo: ecossistemas</div><div class="ds">Link · 16/06</div></div><div class="go"><svg class="ic"><use href="#i-chev"/></svg></div></div>
-              </div>
-              <div class="note">Materiais por disciplina, conforme a turma. Origem: RM / storage do portal (somente leitura).</div>
+          <!-- ATIVIDADES -->
+          <div id="scr-atividades" class="screen">
+            <div class="subhead"><button class="backbtn" onclick="back()"><svg class="ic"><use href="#i-back"/></svg></button><h2>Atividades e tarefas</h2></div>
+            <div class="list">
+              <div class="li"><div class="chip-ic ic-orange"><svg class="ic"><use href="#i-edit"/></svg></div><div><div class="tt">Trabalho de História</div><div class="ds">Entrega: 26/06</div></div><div class="rt"><span class="pill p-warn">pendente</span></div></div>
+              <div class="li"><div class="chip-ic ic-blue"><svg class="ic"><use href="#i-edit"/></svg></div><div><div class="tt">Lista de Matemática 4</div><div class="ds">Entrega: 24/06</div></div><div class="rt"><span class="pill p-acc">em andamento</span></div></div>
+              <div class="li"><div class="chip-ic" style="background:var(--okbg);color:var(--ok)"><svg class="ic"><use href="#i-check"/></svg></div><div><div class="tt">Redação — Meio ambiente</div><div class="ds">Entregue em 12/06</div></div><div class="rt"><span class="pill p-ok">nota 9,0</span></div></div>
             </div>
+          </div>
 
-            <!-- ATIVIDADES -->
-            <div id="scr-atividades" class="screen">
-              <div class="subhead"><button class="backbtn" onclick="back()"><svg class="ic"><use href="#i-back"/></svg></button><h2>Atividades e tarefas</h2></div>
-              <div class="list">
-                <div class="li"><div class="chip-ic"><svg class="ic"><use href="#i-edit"/></svg></div><div><div class="tt">Trabalho de História</div><div class="ds">Entrega: 26/06</div></div><div class="rt"><span class="pill p-warn">pendente</span></div></div>
-                <div class="li"><div class="chip-ic"><svg class="ic"><use href="#i-edit"/></svg></div><div><div class="tt">Lista de Matemática 4</div><div class="ds">Entrega: 24/06</div></div><div class="rt"><span class="pill p-acc">em andamento</span></div></div>
-                <div class="li"><div class="chip-ic" style="background:var(--okbg);color:var(--ok)"><svg class="ic"><use href="#i-check"/></svg></div><div><div class="tt">Redação — Meio ambiente</div><div class="ds">Entregue em 12/06</div></div><div class="rt"><span class="pill p-ok">nota 9,0</span></div></div>
-              </div>
-              <div class="note">Consulta de prazos e notas. A entrega de arquivos pelo aluno (escrita no RM) entra na Fase 2.</div>
+          <!-- AVISOS -->
+          <div id="scr-avisos" class="screen">
+            <div class="pagehead"><h2>Avisos e comunicados</h2><p><span class="ctx-escola">Escola da Vila</span></p></div>
+            <div class="list">
+              <div class="li" onclick="openComunicado(this,'Reunião de pais e mestres','Direção · 22/06','Prezadas famílias, convidamos para a reunião de pais e mestres do 2º trimestre, no dia 26/06 às 19h, no auditório.')"><div class="chip-ic grad"><svg class="ic"><use href="#i-mega"/></svg></div><div><div class="tt">Reunião de pais e mestres</div><div class="ds">Direção · há 2 h</div></div><div class="rt"><span class="pill p-dan nd">novo</span></div></div>
+              <div class="li" onclick="openComunicado(this,'Lista de materiais — 2º semestre','Coordenação · 21/06','Já está disponível a lista de materiais complementares do 2º semestre. Itens podem ser adquiridos até 05/07.')"><div class="chip-ic ic-pink"><svg class="ic"><use href="#i-pin"/></svg></div><div><div class="tt">Lista de materiais — 2º sem.</div><div class="ds">Coordenação · ontem</div></div><div class="rt"><span class="pill p-dan nd">novo</span></div></div>
+              <div class="li" onclick="openComunicado(this,'Campanha do agasalho','Coordenação · 16/06','Nossa campanha do agasalho vai até 30/06. Doações na portaria.')"><div class="chip-ic ic-teal"><svg class="ic"><use href="#i-mega"/></svg></div><div><div class="tt">Campanha do agasalho</div><div class="ds">Coordenação · 16/06 · lido</div></div><div class="go"><svg class="ic"><use href="#i-chev"/></svg></div></div>
             </div>
+            <button class="btn ghost" onclick="go('scr-agenda')"><svg class="ic"><use href="#i-pin"/></svg> Ver agenda / recados</button>
+          </div>
 
-            <!-- AVISOS -->
-            <div id="scr-avisos" class="screen">
-              <div class="pagehead"><h2>Avisos e comunicados</h2><p><span class="ctx-escola">Escola da Vila</span></p></div>
-              <div class="list">
-                <div class="li" onclick="openComunicado(this,'Reunião de pais e mestres','Direção · 22/06','Prezadas famílias, convidamos para a reunião de pais e mestres do 2º trimestre, no dia 26/06 às 19h, no auditório. Contamos com a presença de todos para alinharmos o acompanhamento pedagógico do semestre.')">
-                  <div class="chip-ic grad"><svg class="ic"><use href="#i-mega"/></svg></div><div><div class="tt">Reunião de pais e mestres</div><div class="ds">Direção · há 2 h</div></div><div class="rt"><span class="pill p-dan nd">novo</span></div></div>
-                <div class="li" onclick="openComunicado(this,'Lista de materiais — 2º semestre','Coordenação · 21/06','Já está disponível a lista de materiais complementares do 2º semestre. Os itens podem ser adquiridos até 05/07.')">
-                  <div class="chip-ic"><svg class="ic"><use href="#i-pin"/></svg></div><div><div class="tt">Lista de materiais — 2º semestre</div><div class="ds">Coordenação · ontem</div></div><div class="rt"><span class="pill p-dan nd">novo</span></div></div>
-                <div class="li" onclick="openComunicado(this,'Campanha do agasalho','Coordenação · 16/06','Nossa campanha do agasalho vai até 30/06. Doações podem ser entregues na portaria.')">
-                  <div class="chip-ic"><svg class="ic"><use href="#i-leaf"/></svg></div><div><div class="tt">Campanha do agasalho</div><div class="ds">Coordenação · 16/06 · lido</div></div><div class="go"><svg class="ic"><use href="#i-chev"/></svg></div></div>
-              </div>
-              <button class="btn ghost" onclick="go('scr-agenda')"><svg class="ic"><use href="#i-pin"/></svg> Ver agenda / recados</button>
+          <!-- AGENDA -->
+          <div id="scr-agenda" class="screen">
+            <div class="subhead"><button class="backbtn" onclick="back()"><svg class="ic"><use href="#i-back"/></svg></button><h2>Agenda / recados</h2></div>
+            <div class="card"><div class="tl">
+              <div class="ev"><div class="tm">Hoje · 15h10</div><div class="tx">Participou bem da atividade de leitura. 📖</div></div>
+              <div class="ev"><div class="tm">Hoje · 11h40</div><div class="tx">Almoçou bem e descansou no período.</div></div>
+              <div class="ev"><div class="tm">Ontem · 16h00</div><div class="tx">Lembrete: trazer material de artes na quinta. 🎨</div></div>
+            </div></div>
+          </div>
+
+          <!-- FINANCEIRO -->
+          <div id="scr-financeiro" class="screen">
+            <div class="pagehead"><h2>Financeiro</h2><p>Responsável financeiro · <span class="ctx-nome">Helena</span></p></div>
+            <div class="feature"><div class="blob"></div><div class="lbl">Total em aberto</div><div class="big">R$ 2.480,00</div><div class="ftrow"><span class="pill" style="background:rgba(255,255,255,.22);color:#fff">1 mensalidade a vencer</span></div></div>
+            <h3 class="sec">Mensalidades</h3>
+            <div class="list">
+              <div class="li" onclick="openOvl('ov-2via')"><div class="chip-ic"><svg class="ic"><use href="#i-wallet"/></svg></div><div><div class="tt">Junho / 2026</div><div class="ds">Vence 23/06 · R$ 2.480,00</div></div><div class="rt"><span class="pill p-warn">em aberto</span></div></div>
+              <div class="li"><div class="chip-ic" style="background:var(--okbg);color:var(--ok)"><svg class="ic"><use href="#i-check"/></svg></div><div><div class="tt">Maio / 2026</div><div class="ds">Pago em 08/05 · R$ 2.480,00</div></div><div class="rt"><span class="pill p-ok">paga</span></div></div>
+              <div class="li"><div class="chip-ic" style="background:var(--okbg);color:var(--ok)"><svg class="ic"><use href="#i-check"/></svg></div><div><div class="tt">Abril / 2026</div><div class="ds">Pago em 06/04 · R$ 2.480,00</div></div><div class="rt"><span class="pill p-ok">paga</span></div></div>
             </div>
-
-            <!-- AGENDA -->
-            <div id="scr-agenda" class="screen">
-              <div class="subhead"><button class="backbtn" onclick="back()"><svg class="ic"><use href="#i-back"/></svg></button><h2>Agenda / recados</h2></div>
-              <div class="card">
-                <div class="tl">
-                  <div class="ev"><div class="tm">Hoje · 15h10</div><div class="tx">Participou bem da atividade de leitura. 📖</div></div>
-                  <div class="ev"><div class="tm">Hoje · 11h40</div><div class="tx">Almoçou bem e descansou no período.</div></div>
-                  <div class="ev"><div class="tm">Ontem · 16h00</div><div class="tx">Lembrete: trazer material de artes na quinta. 🎨</div></div>
-                  <div class="ev"><div class="tm">18/06 · 09h20</div><div class="tx">Pequeno arranhão no joelho no recreio; já atendido pela enfermaria.</div></div>
-                </div>
-              </div>
-              <div class="note">Recados do dia a dia, registrados pela escola. O conteúdo pedagógico é de responsabilidade de cada escola.</div>
+            <div class="list">
+              <div class="li" onclick="go('scr-docrel')"><div class="chip-ic ic-orange"><svg class="ic"><use href="#i-receipt"/></svg></div><div><div class="tt">Documentos &amp; NF</div><div class="ds">IR, NF-e, NFS-e, quitação, contrato</div></div><div class="go"><svg class="ic"><use href="#i-chev"/></svg></div></div>
+              <div class="li" onclick="go('scr-acordo')"><div class="chip-ic ic-teal"><svg class="ic"><use href="#i-handshake"/></svg></div><div><div class="tt">Negociar / acordo</div><div class="ds">Renegociação de débitos</div></div><div class="go"><svg class="ic"><use href="#i-chev"/></svg></div></div>
             </div>
+            <div class="note">Valores e encargos vêm do RM. Boleto/PIX conforme o meio adotado pela escola (a confirmar no discovery).</div>
+          </div>
 
-            <!-- FINANCEIRO -->
-            <div id="scr-financeiro" class="screen">
-              <div class="pagehead"><h2>Financeiro</h2><p>Responsável financeiro · <span class="ctx-nome">Helena</span></p></div>
-              <div class="feature">
-                <div class="blob"></div>
-                <div class="lbl">Total em aberto</div>
-                <div class="big">R$ 2.480,00</div>
-                <div class="ftrow"><span class="pill" style="background:rgba(255,255,255,.22);color:#fff">1 mensalidade a vencer</span></div>
-              </div>
-              <h3 class="sec">Mensalidades</h3>
-              <div class="list">
-                <div class="li" onclick="openOvl('ov-2via')"><div class="chip-ic"><svg class="ic"><use href="#i-wallet"/></svg></div><div><div class="tt">Junho / 2026</div><div class="ds">Vence 23/06 · R$ 2.480,00</div></div><div class="rt"><span class="pill p-warn">em aberto</span></div></div>
-                <div class="li"><div class="chip-ic" style="background:var(--okbg);color:var(--ok)"><svg class="ic"><use href="#i-check"/></svg></div><div><div class="tt">Maio / 2026</div><div class="ds">Pago em 08/05 · R$ 2.480,00</div></div><div class="rt"><span class="pill p-ok">paga</span></div></div>
-                <div class="li"><div class="chip-ic" style="background:var(--okbg);color:var(--ok)"><svg class="ic"><use href="#i-check"/></svg></div><div><div class="tt">Abril / 2026</div><div class="ds">Pago em 06/04 · R$ 2.480,00</div></div><div class="rt"><span class="pill p-ok">paga</span></div></div>
-              </div>
-              <div class="list">
-                <div class="li" onclick="go('scr-ir')"><div class="chip-ic"><svg class="ic"><use href="#i-receipt"/></svg></div><div><div class="tt">Demonstrativo para IR</div><div class="ds">Ano-base 2025</div></div><div class="go"><svg class="ic"><use href="#i-chev"/></svg></div></div>
-                <div class="li" onclick="toast('Solicitação encaminhada à secretaria')"><div class="chip-ic"><svg class="ic"><use href="#i-handshake"/></svg></div><div><div class="tt">Negociar / acordo</div><div class="ds">Encaminhar à secretaria</div></div><div class="go"><svg class="ic"><use href="#i-chev"/></svg></div></div>
-              </div>
-              <div class="note">Valores e encargos vêm do RM. A geração de boleto/PIX segue o meio adotado pela escola (a confirmar no discovery).</div>
+          <!-- DOCUMENTOS & RELATÓRIOS (RF-19) -->
+          <div id="scr-docrel" class="screen">
+            <div class="subhead"><button class="backbtn" onclick="back()"><svg class="ic"><use href="#i-back"/></svg></button><h2>Documentos &amp; Relatórios</h2></div>
+            <div class="muted" style="margin:0 4px 8px">Emitidos pelo RM Reports · ano-base 2025/2026</div>
+            <div class="list">
+              <div class="li" onclick="toast('Emitindo boletim (RM Reports)…')"><div class="chip-ic ic-magenta"><svg class="ic"><use href="#i-grad"/></svg></div><div><div class="tt">Boletim escolar</div><div class="ds">Layout da escola</div></div><div class="go"><svg class="ic"><use href="#i-dl"/></svg></div></div>
+              <div class="li" onclick="openOvl('ov-2via')"><div class="chip-ic ic-blue"><svg class="ic"><use href="#i-wallet"/></svg></div><div><div class="tt">Boleto / 2ª via (PIX)</div><div class="ds">Mensalidade em aberto</div></div><div class="go"><svg class="ic"><use href="#i-chev"/></svg></div></div>
+              <div class="li" onclick="toast('Gerando comprovante de IR…')"><div class="chip-ic ic-green"><svg class="ic"><use href="#i-receipt"/></svg></div><div><div class="tt">Comprovante para IR</div><div class="ds">R$ 29.760,00 · 2025</div></div><div class="go"><svg class="ic"><use href="#i-dl"/></svg></div></div>
+              <div class="li" onclick="toast('Emitindo NF-e (DANFE)…')"><div class="chip-ic ic-orange"><svg class="ic"><use href="#i-doc2"/></svg></div><div><div class="tt">NF-e (DANFE) — produtos</div><div class="ds">Materiais / uniformes</div></div><div class="go"><svg class="ic"><use href="#i-dl"/></svg></div></div>
+              <div class="li" onclick="toast('Emitindo NFS-e…')"><div class="chip-ic ic-teal"><svg class="ic"><use href="#i-doc2"/></svg></div><div><div class="tt">NFS-e — serviços</div><div class="ds">Serviços educacionais</div></div><div class="go"><svg class="ic"><use href="#i-dl"/></svg></div></div>
+              <div class="li" onclick="toast('Gerando declaração de quitação…')"><div class="chip-ic ic-purple"><svg class="ic"><use href="#i-shield"/></svg></div><div><div class="tt">Declaração de quitação</div><div class="ds">Termo anual de débitos</div></div><div class="go"><svg class="ic"><use href="#i-dl"/></svg></div></div>
+              <div class="li" onclick="toast('Baixando 2ª via do contrato…')"><div class="chip-ic ic-pink"><svg class="ic"><use href="#i-file"/></svg></div><div><div class="tt">2ª via do contrato</div><div class="ds">Contrato assinado</div></div><div class="go"><svg class="ic"><use href="#i-dl"/></svg></div></div>
             </div>
+            <div class="note">Cada documento é emitido pelo RM Reports (DOC cadastrado), com template por escola/segmento.</div>
+          </div>
 
-            <!-- IR -->
-            <div id="scr-ir" class="screen">
-              <div class="subhead"><button class="backbtn" onclick="back()"><svg class="ic"><use href="#i-back"/></svg></button><h2>Demonstrativo para IR</h2></div>
-              <div class="card"><div class="muted" style="margin-bottom:6px">Ano-base 2025 · <span class="ctx-nome">Helena</span> Souza</div>
-                <div class="kv"><span>Total pago no ano</span><b>R$ 29.760,00</b></div>
-                <div class="kv"><span>CNPJ mantenedora</span><b>45.987.245/0001-92</b></div>
-                <div class="kv" style="border:0"><span>Aluno (CPF)</span><b>***.456.789-**</b></div>
+          <!-- IR (atalho mantido) -->
+          <div id="scr-ir" class="screen">
+            <div class="subhead"><button class="backbtn" onclick="back()"><svg class="ic"><use href="#i-back"/></svg></button><h2>Comprovante para IR</h2></div>
+            <div class="card"><div class="muted" style="margin-bottom:6px">Ano-base 2025 · <span class="ctx-nome">Helena</span> Souza</div>
+              <div class="kv"><span>Total pago no ano</span><b>R$ 29.760,00</b></div><div class="kv"><span>CNPJ mantenedora</span><b>45.987.245/0001-92</b></div><div class="kv" style="border:0"><span>Aluno (CPF)</span><b>***.456.789-**</b></div></div>
+            <button class="btn" onclick="toast('Gerando comprovante (RM Reports)…')"><svg class="ic"><use href="#i-dl"/></svg> Baixar comprovante (PDF)</button>
+          </div>
+
+          <!-- REMATRÍCULA ORQUESTRADA (RF-15/13) -->
+          <div id="scr-rematricula" class="screen">
+            <div class="subhead"><button class="backbtn" onclick="back()"><svg class="ic"><use href="#i-back"/></svg></button><h2>Rematrícula 2027</h2></div>
+            <div id="remat-form">
+              <div class="card"><div class="row"><div class="chip-ic grad"><svg class="ic"><use href="#i-grad"/></svg></div><div><div class="tt"><span class="ctx-nome">Helena</span> Souza</div><div class="ds">Próxima série: 8º ano · <span class="ctx-escola">Escola da Vila</span></div></div></div></div>
+              <h3 class="sec">Etapas (conclua para assinar)</h3>
+              <div class="steps">
+                <div class="step done" onclick="go('scr-conta')"><div class="num"><svg class="ic" style="width:16px"><use href="#i-checkbig"/></svg></div><div><div class="tt">1. Dados cadastrais</div><div class="ds">Conferido</div></div><div class="go" style="margin-left:auto"><svg class="ic"><use href="#i-chev"/></svg></div></div>
+                <div class="step done" onclick="go('scr-ficha')"><div class="num"><svg class="ic" style="width:16px"><use href="#i-checkbig"/></svg></div><div><div class="tt">2. Ficha médica</div><div class="ds">Preenchida</div></div><div class="go" style="margin-left:auto"><svg class="ic"><use href="#i-chev"/></svg></div></div>
+                <div class="step" onclick="go('scr-docs')"><div class="num">3</div><div><div class="tt">3. Documentos</div><div class="ds">1 pendente</div></div><div class="go" style="margin-left:auto"><svg class="ic"><use href="#i-chev"/></svg></div></div>
+                <div class="step" onclick="go('scr-autoriz')"><div class="num">4</div><div><div class="tt">4. Autorizações de saída</div><div class="ds">Opcional</div></div><div class="go" style="margin-left:auto"><svg class="ic"><use href="#i-chev"/></svg></div></div>
               </div>
-              <button class="btn" onclick="toast('Gerando demonstrativo em PDF…')"><svg class="ic"><use href="#i-dl"/></svg> Baixar demonstrativo (PDF)</button>
+              <div class="card"><div class="tt" style="margin-bottom:8px">Condições</div><div class="kv"><span>Anuidade 2027</span><b>R$ 32.736,00</b></div><div class="kv"><span>Parcelamento</span><b>12x R$ 2.728,00</b></div><div class="kv" style="border:0"><span>Situação financeira</span><b style="color:var(--ok)">regular</b></div></div>
+              <label class="check"><input type="checkbox" id="agree" onchange="document.getElementById('btnRemat').disabled=!this.checked"><span>Li e aceito o contrato de prestação de serviços educacionais 2027.</span></label>
+              <button class="btn" id="btnRemat" disabled onclick="confirmRemat()"><svg class="ic"><use href="#i-checkbig"/></svg> Assinar e confirmar</button>
+              <div class="note">O aceite só é habilitado após os passos obrigatórios (ficha médica + documentos). Registro com data/hora/versão (auditoria).</div>
             </div>
+            <div id="remat-ok" class="success" style="display:none"><div class="ok"><svg class="ic"><use href="#i-checkbig"/></svg></div><h3 style="margin:0 0 6px;font-size:20px;font-weight:700">Rematrícula confirmada!</h3><p class="muted">Protocolo <b>RM-2027-018342</b>. Boleto da 1ª parcela disponível no Financeiro.</p><button class="btn ghost" style="margin-top:16px" onclick="goTab('scr-home')">Voltar ao início</button></div>
+          </div>
 
-            <!-- REMATRÍCULA -->
-            <div id="scr-rematricula" class="screen">
-              <div class="subhead"><button class="backbtn" onclick="back()"><svg class="ic"><use href="#i-back"/></svg></button><h2>Rematrícula 2027</h2></div>
-              <div id="remat-form">
-                <div class="card"><div class="row"><div class="chip-ic grad"><svg class="ic"><use href="#i-grad"/></svg></div><div><div class="tt"><span class="ctx-nome">Helena</span> Souza</div><div class="ds">Próxima série: 8º ano · <span class="ctx-escola">Escola da Vila</span></div></div></div></div>
-                <div class="card">
-                  <div class="tt" style="margin-bottom:8px">Condições</div>
-                  <div class="kv"><span>Anuidade 2027</span><b>R$ 32.736,00</b></div>
-                  <div class="kv"><span>Parcelamento</span><b>12x R$ 2.728,00</b></div>
-                  <div class="kv" style="border:0"><span>Situação financeira</span><b style="color:var(--ok)">regular</b></div>
-                </div>
-                <div class="card tap" onclick="toast('Abrindo contrato…')"><div class="row"><div class="chip-ic"><svg class="ic"><use href="#i-file"/></svg></div><div><div class="tt">Contrato 2027</div><div class="ds">Toque para ler o documento</div></div><div class="go"><svg class="ic"><use href="#i-chev"/></svg></div></div></div>
-                <label class="check"><input type="checkbox" id="agree" onchange="document.getElementById('btnRemat').disabled=!this.checked">
-                  <span>Li e aceito os termos do contrato de prestação de serviços educacionais para 2027.</span></label>
-                <button class="btn" id="btnRemat" disabled onclick="confirmRemat()"><svg class="ic"><use href="#i-checkbig"/></svg> Confirmar rematrícula</button>
-                <div class="note">O aceite é registrado com data, hora e versão (trilha de auditoria). A efetivação no RM é uma operação de escrita.</div>
-              </div>
-              <div id="remat-ok" class="success" style="display:none">
-                <div class="ok"><svg class="ic"><use href="#i-checkbig"/></svg></div>
-                <h3 style="margin:0 0 6px;font-size:20px;font-weight:800">Rematrícula confirmada!</h3>
-                <p class="muted">Protocolo <b>RM-2027-018342</b>. O boleto da 1ª parcela já está disponível no Financeiro.</p>
-                <button class="btn ghost" style="margin-top:16px" onclick="goTab('scr-home')">Voltar ao início</button>
-              </div>
+          <!-- FICHA MÉDICA (RF-16) -->
+          <div id="scr-ficha" class="screen">
+            <div class="subhead"><button class="backbtn" onclick="back()"><svg class="ic"><use href="#i-back"/></svg></button><h2>Ficha médica</h2></div>
+            <div class="card"><div class="row"><div class="chip-ic ic-pink"><svg class="ic"><use href="#i-heart"/></svg></div><div><div class="tt"><span class="ctx-nome">Helena</span> Souza</div><div class="ds">Atualizada em 02/02/2026</div></div><div class="rt"><span class="pill p-ok">completa</span></div></div></div>
+            <div class="card"><div class="kv"><span>Tipo sanguíneo</span><b>O+</b></div><div class="kv"><span>Alergias</span><b>Amendoim</b></div><div class="kv"><span>Medicação contínua</span><b>—</b></div><div class="kv" style="border:0"><span>Contato de emergência</span><b>Patrícia · (11) 9 9999-8888</b></div></div>
+            <button class="btn ghost" onclick="toast('Ficha médica salva no RM')"><svg class="ic"><use href="#i-edit"/></svg> Editar ficha médica</button>
+            <div class="note">Dado sensível de saúde — tratado conforme a LGPD. Integração nativa TOTVS.</div>
+          </div>
+
+          <!-- DOCUMENTOS / UPLOAD (RF-17) -->
+          <div id="scr-docs" class="screen">
+            <div class="subhead"><button class="backbtn" onclick="back()"><svg class="ic"><use href="#i-back"/></svg></button><h2>Documentos solicitados</h2></div>
+            <div class="list">
+              <div class="li"><div class="chip-ic" style="background:var(--okbg);color:var(--ok)"><svg class="ic"><use href="#i-check"/></svg></div><div><div class="tt">RG / Certidão</div><div class="ds">Aprovado</div></div><div class="rt"><span class="pill p-ok">recebido</span></div></div>
+              <div class="li"><div class="chip-ic" style="background:var(--okbg);color:var(--ok)"><svg class="ic"><use href="#i-check"/></svg></div><div><div class="tt">Foto 3x4</div><div class="ds">Recebida</div></div><div class="rt"><span class="pill p-ok">recebido</span></div></div>
+              <div class="li" onclick="toast('Abrindo envio de arquivo…')"><div class="chip-ic ic-orange"><svg class="ic"><use href="#i-up"/></svg></div><div><div class="tt">Comprovante de residência</div><div class="ds">Toque para enviar (PDF/foto)</div></div><div class="rt"><span class="pill p-warn">pendente</span></div></div>
             </div>
+            <button class="btn" onclick="toast('Selecionar arquivo para envio…')"><svg class="ic"><use href="#i-up"/></svg> Enviar documento</button>
+            <div class="note">Tipos e tamanhos controlados; validação pela secretaria. Integração nativa TOTVS.</div>
+          </div>
 
-            <!-- REQUERIMENTOS -->
-            <div id="scr-requerimentos" class="screen">
-              <div class="subhead"><button class="backbtn" onclick="back()"><svg class="ic"><use href="#i-back"/></svg></button><h2>Secretaria · Requerimentos</h2></div>
-              <h3 class="sec">Solicitar documento</h3>
-              <div class="list">
-                <div class="li" onclick="abrirReq('Declaração de matrícula')"><div class="chip-ic"><svg class="ic"><use href="#i-file"/></svg></div><div><div class="tt">Declaração de matrícula</div><div class="ds">Pronta em até 2 dias úteis</div></div><div class="go"><svg class="ic"><use href="#i-plus"/></svg></div></div>
-                <div class="li" onclick="abrirReq('Histórico escolar')"><div class="chip-ic"><svg class="ic"><use href="#i-receipt"/></svg></div><div><div class="tt">Histórico escolar</div><div class="ds">Pronto em até 5 dias úteis</div></div><div class="go"><svg class="ic"><use href="#i-plus"/></svg></div></div>
-                <div class="li" onclick="abrirReq('Atualização cadastral')"><div class="chip-ic"><svg class="ic"><use href="#i-edit"/></svg></div><div><div class="tt">Atualizar dados cadastrais</div><div class="ds">Validação pela secretaria</div></div><div class="go"><svg class="ic"><use href="#i-plus"/></svg></div></div>
-              </div>
-              <h3 class="sec">Meus requerimentos</h3>
-              <div class="list" id="meus-req">
-                <div class="li"><div class="chip-ic" style="background:var(--okbg);color:var(--ok)"><svg class="ic"><use href="#i-check"/></svg></div><div><div class="tt">Declaração de matrícula</div><div class="ds">Protocolo 2026-04417 · 10/06</div></div><div class="rt"><span class="pill p-ok">concluído</span></div></div>
-              </div>
+          <!-- AUTORIZAÇÕES DE SAÍDA (RF-18) -->
+          <div id="scr-autoriz" class="screen">
+            <div class="subhead"><button class="backbtn" onclick="back()"><svg class="ic"><use href="#i-back"/></svg></button><h2>Autorizações de saída</h2></div>
+            <div class="muted" style="margin:0 4px 8px">Quem pode retirar <span class="ctx-nome">Helena</span> da escola</div>
+            <div class="list">
+              <div class="li"><div class="chip-ic ic-blue"><svg class="ic"><use href="#i-idcard"/></svg></div><div><div class="tt">Patrícia Souza</div><div class="ds">Mãe · RG 12.345.678-9</div></div><div class="rt"><span class="pill p-ok">ativo</span></div></div>
+              <div class="li"><div class="chip-ic ic-purple"><svg class="ic"><use href="#i-idcard"/></svg></div><div><div class="tt">Marcos Souza</div><div class="ds">Pai · RG 98.765.432-1</div></div><div class="rt"><span class="pill p-ok">ativo</span></div></div>
+              <div class="li"><div class="chip-ic ic-teal"><svg class="ic"><use href="#i-idcard"/></svg></div><div><div class="tt">Dona Cleusa (avó)</div><div class="ds">Avó · RG 45.678.901-2</div></div><div class="rt"><span class="pill p-acc">em análise</span></div></div>
             </div>
+            <button class="btn" onclick="toast('Cadastrar pessoa autorizada…')"><svg class="ic"><use href="#i-plus"/></svg> Adicionar autorizado</button>
+            <div class="note">Validado pela escola; dados de terceiros tratados conforme LGPD. Requer ação interna no RM (metadados).</div>
+          </div>
 
-            <!-- CONTA -->
-            <div id="scr-conta" class="screen">
-              <div class="subhead"><button class="backbtn" onclick="back()"><svg class="ic"><use href="#i-back"/></svg></button><h2>Minha conta</h2></div>
-              <div class="card"><div class="row"><div class="chip-ic grad" style="width:52px;height:52px;border-radius:16px"><svg class="ic" style="width:26px;height:26px"><use href="#i-user"/></svg></div><div><div class="tt" style="font-size:16px">Patrícia Souza</div><div class="ds">patricia.souza@email.com</div></div></div></div>
-              <h3 class="sec">Privacidade (LGPD)</h3>
-              <div class="card"><div class="row"><div class="chip-ic" style="background:var(--okbg);color:var(--ok)"><svg class="ic"><use href="#i-shield"/></svg></div><div><div class="tt">Consentimento de uso de dados</div><div class="ds">Aceito em 02/02/2026 · v1.2</div></div><div class="rt"><span class="pill p-ok">registrado</span></div></div></div>
-              <div class="list">
-                <div class="li" onclick="toast('Abrindo política de privacidade…')"><div class="chip-ic"><svg class="ic"><use href="#i-shield"/></svg></div><div><div class="tt">Política de privacidade</div></div><div class="go"><svg class="ic"><use href="#i-chev"/></svg></div></div>
-                <div class="li" onclick="toast('Solicitação registrada')"><div class="chip-ic"><svg class="ic"><use href="#i-file"/></svg></div><div><div class="tt">Solicitar meus dados / correção</div></div><div class="go"><svg class="ic"><use href="#i-chev"/></svg></div></div>
-                <div class="li" onclick="toast('Função de demonstração')"><div class="chip-ic"><svg class="ic"><use href="#i-lock"/></svg></div><div><div class="tt">Alterar senha</div></div><div class="go"><svg class="ic"><use href="#i-chev"/></svg></div></div>
-              </div>
-              <button class="btn ghost" onclick="logout()" style="border-color:var(--danger);color:var(--danger)"><svg class="ic"><use href="#i-logout"/></svg> Sair</button>
+          <!-- REQUERIMENTOS -->
+          <div id="scr-requerimentos" class="screen">
+            <div class="subhead"><button class="backbtn" onclick="back()"><svg class="ic"><use href="#i-back"/></svg></button><h2>Secretaria · Requerimentos</h2></div>
+            <h3 class="sec">Solicitar documento</h3>
+            <div class="list">
+              <div class="li" onclick="abrirReq('Declaração de matrícula')"><div class="chip-ic ic-blue"><svg class="ic"><use href="#i-file"/></svg></div><div><div class="tt">Declaração de matrícula</div><div class="ds">Até 2 dias úteis</div></div><div class="go"><svg class="ic"><use href="#i-plus"/></svg></div></div>
+              <div class="li" onclick="abrirReq('Histórico escolar')"><div class="chip-ic ic-magenta"><svg class="ic"><use href="#i-receipt"/></svg></div><div><div class="tt">Histórico escolar</div><div class="ds">Até 5 dias úteis</div></div><div class="go"><svg class="ic"><use href="#i-plus"/></svg></div></div>
             </div>
+            <h3 class="sec">Meus requerimentos</h3>
+            <div class="list" id="meus-req"><div class="li"><div class="chip-ic" style="background:var(--okbg);color:var(--ok)"><svg class="ic"><use href="#i-check"/></svg></div><div><div class="tt">Declaração de matrícula</div><div class="ds">Protocolo 2026-04417 · 10/06</div></div><div class="rt"><span class="pill p-ok">concluído</span></div></div></div>
+          </div>
 
-            <!-- MAIS -->
-            <div id="scr-mais" class="screen">
-              <div class="pagehead"><h2>Mais</h2></div>
-              <div class="list">
-                <div class="li only-resp" onclick="go('scr-rematricula')"><div class="chip-ic"><svg class="ic"><use href="#i-edit"/></svg></div><div><div class="tt">Rematrícula</div></div><div class="go"><svg class="ic"><use href="#i-chev"/></svg></div></div>
-                <div class="li" onclick="go('scr-requerimentos')"><div class="chip-ic"><svg class="ic"><use href="#i-file"/></svg></div><div><div class="tt">Secretaria / requerimentos</div></div><div class="go"><svg class="ic"><use href="#i-chev"/></svg></div></div>
-                <div class="li" onclick="go('scr-agenda')"><div class="chip-ic"><svg class="ic"><use href="#i-pin"/></svg></div><div><div class="tt">Agenda / recados</div></div><div class="go"><svg class="ic"><use href="#i-chev"/></svg></div></div>
-                <div class="li" onclick="go('scr-conta')"><div class="chip-ic"><svg class="ic"><use href="#i-user"/></svg></div><div><div class="tt">Minha conta &amp; privacidade</div></div><div class="go"><svg class="ic"><use href="#i-chev"/></svg></div></div>
-                <div class="li only-resp" onclick="openOvl('ov-trocar')"><div class="chip-ic"><svg class="ic"><use href="#i-swap"/></svg></div><div><div class="tt">Trocar dependente</div></div><div class="go"><svg class="ic"><use href="#i-chev"/></svg></div></div>
-                <div class="li" onclick="openOvl('ov-sobre')"><div class="chip-ic"><svg class="ic"><use href="#i-info"/></svg></div><div><div class="tt">Sobre este protótipo</div></div><div class="go"><svg class="ic"><use href="#i-chev"/></svg></div></div>
-                <div class="li" onclick="logout()"><div class="chip-ic" style="background:var(--dangerbg);color:var(--danger)"><svg class="ic"><use href="#i-logout"/></svg></div><div><div class="tt" style="color:var(--danger)">Sair</div></div></div>
-              </div>
+          <!-- SERVIÇOS EXTERNOS (RF-20) -->
+          <div id="scr-servicos" class="screen">
+            <div class="subhead"><button class="backbtn" onclick="back()"><svg class="ic"><use href="#i-back"/></svg></button><h2>Serviços externos</h2></div>
+            <div class="card tap" onclick="toast('Abrindo sistema externo via SSO…')"><div class="row"><div class="chip-ic ic-orange"><svg class="ic"><use href="#i-ext"/></svg></div><div><div class="tt">Atividades extracurriculares</div><div class="ds">Oficinas e esportes</div></div><div class="go"><svg class="ic"><use href="#i-ext"/></svg></div></div></div>
+            <div class="card tap" onclick="toast('Abrindo sistema externo via SSO…')"><div class="row"><div class="chip-ic ic-blue"><svg class="ic"><use href="#i-ext"/></svg></div><div><div class="tt">Contraturno &amp; IB</div><div class="ds">Períodos adicionais e programa internacional</div></div><div class="go"><svg class="ic"><use href="#i-ext"/></svg></div></div></div>
+            <div class="note">Acesso já autenticado via SSO "URL Externa" (chave de sessão validada na API TOTVS).</div>
+          </div>
+
+          <!-- LIVROS (RF-21) -->
+          <div id="scr-livros" class="screen">
+            <div class="subhead"><button class="backbtn" onclick="back()"><svg class="ic"><use href="#i-back"/></svg></button><h2>Livros didáticos</h2></div>
+            <div class="muted" style="margin:0 4px 8px">Lista do <span class="ctx-serie">7º ano B</span> · <span class="ctx-escola">Escola da Vila</span></div>
+            <div class="list">
+              <div class="li"><div class="chip-ic ic-magenta"><svg class="ic"><use href="#i-book"/></svg></div><div><div class="tt">Português — Coleção Vila</div><div class="ds">Vol. 7</div></div><div class="go"><svg class="ic"><use href="#i-chev"/></svg></div></div>
+              <div class="li"><div class="chip-ic ic-blue"><svg class="ic"><use href="#i-book"/></svg></div><div><div class="tt">Matemática — Coleção Vila</div><div class="ds">Vol. 7</div></div><div class="go"><svg class="ic"><use href="#i-chev"/></svg></div></div>
+              <div class="li"><div class="chip-ic ic-teal"><svg class="ic"><use href="#i-book"/></svg></div><div><div class="tt">Inglês — Student's Book</div><div class="ds">Level 5</div></div><div class="go"><svg class="ic"><use href="#i-chev"/></svg></div></div>
             </div>
+            <button class="btn" onclick="toast('Abrindo loja/parceiro…')"><svg class="ic"><use href="#i-ext"/></svg> Adquirir lista completa</button>
+          </div>
 
-          </div><!-- /screens -->
-        </div><!-- /maincol -->
-      </div><!-- /appbody -->
+          <!-- ATENDIMENTO (RF-22) -->
+          <div id="scr-atend" class="screen">
+            <div class="subhead"><button class="backbtn" onclick="back()"><svg class="ic"><use href="#i-back"/></svg></button><h2>Atendimento &amp; ajuda</h2></div>
+            <h3 class="sec">Falar com a escola</h3>
+            <div class="list">
+              <div class="li" onclick="toast('Abrindo canal da Secretaria…')"><div class="chip-ic ic-blue"><svg class="ic"><use href="#i-phone"/></svg></div><div><div class="tt">Secretaria</div><div class="ds">Escola da Vila</div></div><div class="go"><svg class="ic"><use href="#i-chev"/></svg></div></div>
+              <div class="li" onclick="toast('Abrindo canal do Financeiro…')"><div class="chip-ic ic-green"><svg class="ic"><use href="#i-phone"/></svg></div><div><div class="tt">Financeiro</div><div class="ds">Mensalidades e acordos</div></div><div class="go"><svg class="ic"><use href="#i-chev"/></svg></div></div>
+            </div>
+            <h3 class="sec">Central de ajuda</h3>
+            <div class="list">
+              <div class="li" onclick="toast('Abrindo Guia de Matrícula…')"><div class="chip-ic ic-orange"><svg class="ic"><use href="#i-help"/></svg></div><div><div class="tt">Guia de matrícula</div></div><div class="go"><svg class="ic"><use href="#i-chev"/></svg></div></div>
+              <div class="li" onclick="toast('Abrindo FAQ…')"><div class="chip-ic ic-purple"><svg class="ic"><use href="#i-help"/></svg></div><div><div class="tt">Perguntas frequentes</div></div><div class="go"><svg class="ic"><use href="#i-chev"/></svg></div></div>
+            </div>
+          </div>
+
+          <!-- ACORDO (RF-23, futuro) -->
+          <div id="scr-acordo" class="screen">
+            <div class="subhead"><button class="backbtn" onclick="back()"><svg class="ic"><use href="#i-back"/></svg></button><h2>Acordo financeiro</h2></div>
+            <div class="card"><div class="row"><div class="chip-ic ic-teal"><svg class="ic"><use href="#i-handshake"/></svg></div><div><div class="tt">Renegociação self-service</div><div class="ds">Simular, gerar e assinar acordos</div></div><div class="rt"><span class="pill p-mut">em breve</span></div></div></div>
+            <div class="note">Funcionalidade <b>desejável/futuro</b> (classificada pelo cliente). No MVP, a negociação é encaminhada à equipe financeira pelo Financeiro.</div>
+            <button class="btn ghost" onclick="toast('Solicitação encaminhada ao Financeiro')"><svg class="ic"><use href="#i-handshake"/></svg> Encaminhar negociação</button>
+          </div>
+
+          <!-- CONTA -->
+          <div id="scr-conta" class="screen">
+            <div class="subhead"><button class="backbtn" onclick="back()"><svg class="ic"><use href="#i-back"/></svg></button><h2>Minha conta</h2></div>
+            <div class="card"><div class="row"><div class="chip-ic grad" style="width:52px;height:52px;border-radius:16px"><svg class="ic" style="width:26px;height:26px"><use href="#i-user"/></svg></div><div><div class="tt" style="font-size:16px">Patrícia Souza</div><div class="ds">patricia.souza@email.com</div></div></div></div>
+            <h3 class="sec">Privacidade (LGPD)</h3>
+            <div class="card"><div class="row"><div class="chip-ic" style="background:var(--okbg);color:var(--ok)"><svg class="ic"><use href="#i-shield"/></svg></div><div><div class="tt">Consentimento de uso de dados</div><div class="ds">Aceito em 02/02/2026 · v1.2</div></div><div class="rt"><span class="pill p-ok">registrado</span></div></div></div>
+            <div class="list">
+              <div class="li" onclick="toast('Abrindo política de privacidade…')"><div class="chip-ic ic-blue"><svg class="ic"><use href="#i-shield"/></svg></div><div><div class="tt">Política de privacidade</div></div><div class="go"><svg class="ic"><use href="#i-chev"/></svg></div></div>
+              <div class="li" onclick="toast('Função de demonstração')"><div class="chip-ic ic-purple"><svg class="ic"><use href="#i-lock"/></svg></div><div><div class="tt">Alterar senha</div></div><div class="go"><svg class="ic"><use href="#i-chev"/></svg></div></div>
+            </div>
+            <button class="btn ghost" onclick="logout()" style="border-color:var(--danger);color:var(--danger)"><svg class="ic"><use href="#i-logout"/></svg> Sair</button>
+          </div>
+
+          <!-- MAIS (hub) -->
+          <div id="scr-mais" class="screen">
+            <div class="pagehead"><h2>Mais</h2></div>
+            <h3 class="sec only-resp">Matrícula e secretaria</h3>
+            <div class="list">
+              <div class="li only-resp" onclick="go('scr-rematricula')"><div class="chip-ic ic-lime"><svg class="ic"><use href="#i-edit"/></svg></div><div><div class="tt">Rematrícula</div></div><div class="go"><svg class="ic"><use href="#i-chev"/></svg></div></div>
+              <div class="li only-resp" onclick="go('scr-ficha')"><div class="chip-ic ic-pink"><svg class="ic"><use href="#i-heart"/></svg></div><div><div class="tt">Ficha médica</div></div><div class="go"><svg class="ic"><use href="#i-chev"/></svg></div></div>
+              <div class="li only-resp" onclick="go('scr-docs')"><div class="chip-ic ic-orange"><svg class="ic"><use href="#i-up"/></svg></div><div><div class="tt">Documentos solicitados</div></div><div class="go"><svg class="ic"><use href="#i-chev"/></svg></div></div>
+              <div class="li only-resp" onclick="go('scr-autoriz')"><div class="chip-ic ic-blue"><svg class="ic"><use href="#i-idcard"/></svg></div><div><div class="tt">Autorizações de saída</div></div><div class="go"><svg class="ic"><use href="#i-chev"/></svg></div></div>
+              <div class="li" onclick="go('scr-requerimentos')"><div class="chip-ic ic-magenta"><svg class="ic"><use href="#i-file"/></svg></div><div><div class="tt">Requerimentos</div></div><div class="go"><svg class="ic"><use href="#i-chev"/></svg></div></div>
+            </div>
+            <h3 class="sec">Documentos e serviços</h3>
+            <div class="list">
+              <div class="li only-resp" onclick="go('scr-docrel')"><div class="chip-ic ic-green"><svg class="ic"><use href="#i-receipt"/></svg></div><div><div class="tt">Documentos &amp; relatórios (NF, IR, quitação)</div></div><div class="go"><svg class="ic"><use href="#i-chev"/></svg></div></div>
+              <div class="li" onclick="go('scr-servicos')"><div class="chip-ic ic-orange"><svg class="ic"><use href="#i-ext"/></svg></div><div><div class="tt">Serviços externos (extracurricular, IB)</div></div><div class="go"><svg class="ic"><use href="#i-chev"/></svg></div></div>
+              <div class="li" onclick="go('scr-livros')"><div class="chip-ic ic-teal"><svg class="ic"><use href="#i-book"/></svg></div><div><div class="tt">Livros didáticos</div></div><div class="go"><svg class="ic"><use href="#i-chev"/></svg></div></div>
+              <div class="li" onclick="go('scr-atend')"><div class="chip-ic ic-purple"><svg class="ic"><use href="#i-help"/></svg></div><div><div class="tt">Atendimento &amp; ajuda</div></div><div class="go"><svg class="ic"><use href="#i-chev"/></svg></div></div>
+            </div>
+            <h3 class="sec">Conta</h3>
+            <div class="list">
+              <div class="li" onclick="go('scr-conta')"><div class="chip-ic"><svg class="ic"><use href="#i-user"/></svg></div><div><div class="tt">Minha conta &amp; privacidade</div></div><div class="go"><svg class="ic"><use href="#i-chev"/></svg></div></div>
+              <div class="li only-resp" onclick="openOvl('ov-trocar')"><div class="chip-ic"><svg class="ic"><use href="#i-swap"/></svg></div><div><div class="tt">Trocar dependente</div></div><div class="go"><svg class="ic"><use href="#i-chev"/></svg></div></div>
+              <div class="li" onclick="openOvl('ov-sobre')"><div class="chip-ic"><svg class="ic"><use href="#i-info"/></svg></div><div><div class="tt">Sobre este protótipo</div></div><div class="go"><svg class="ic"><use href="#i-chev"/></svg></div></div>
+              <div class="li" onclick="logout()"><div class="chip-ic" style="background:var(--dangerbg);color:var(--danger)"><svg class="ic"><use href="#i-logout"/></svg></div><div><div class="tt" style="color:var(--danger)">Sair</div></div></div>
+            </div>
+          </div>
+
+        </div></div>
+      </div>
 
       <div id="bottomnav">
         <button data-tab="home" class="on" onclick="goTab('scr-home')"><span class="nic"><svg class="ic"><use href="#i-home"/></svg></span>Início</button>
         <button data-tab="acad" onclick="goTab('scr-boletim')"><span class="nic"><svg class="ic"><use href="#i-grad"/></svg></span>Acadêmico</button>
         <button data-tab="avisos" onclick="goTab('scr-avisos')"><span class="nic"><svg class="ic"><use href="#i-mega"/></svg></span>Avisos</button>
-        <button class="only-resp" data-tab="financeiro" onclick="goTab('scr-financeiro')"><span class="nic"><svg class="ic"><use href="#i-wallet"/></svg></span>Financeiro</button>
+        <button data-tab="financeiro" class="only-resp" onclick="goTab('scr-financeiro')"><span class="nic"><svg class="ic"><use href="#i-wallet"/></svg></span>Financeiro</button>
         <button data-tab="mais" onclick="goTab('scr-mais')"><span class="nic"><svg class="ic"><use href="#i-grid"/></svg></span>Mais</button>
       </div>
-    </div><!-- /appwrap -->
+    </div>
 
     <!-- OVERLAYS -->
-    <div id="ov-2via" class="ovl" onclick="if(event.target===this)closeOvl('ov-2via')">
-      <div class="sheet"><div class="grab"></div>
-        <h3>2ª via — Junho/2026</h3>
-        <div class="muted" style="margin-bottom:10px"><span class="ctx-nome">Helena</span> Souza · vence 23/06</div>
-        <div class="kv"><span>Beneficiário</span><b>Bioma Educação</b></div>
-        <div class="kv"><span>Valor</span><b>R$ 2.480,00</b></div>
-        <h3 style="font-size:15px;margin-top:16px">Pague com PIX</h3>
-        <div class="pixwrap"><div class="pix"></div></div>
-        <div class="copybox" id="pixcode">00020126360014BR.GOV.BCB.PIX0114+5511999998888520400005303986540 5...BIOMA6304A1B2</div>
-        <button class="btn" onclick="copyPix()"><svg class="ic"><use href="#i-qr"/></svg> Copiar código PIX</button>
-        <button class="btn ghost" style="margin-top:10px" onclick="toast('Gerando boleto em PDF…')"><svg class="ic"><use href="#i-dl"/></svg> Baixar boleto (PDF)</button>
-      </div>
-    </div>
+    <div id="ov-2via" class="ovl" onclick="if(event.target===this)closeOvl('ov-2via')"><div class="sheet"><div class="grab"></div>
+      <h3>2ª via — Junho/2026</h3><div class="muted" style="margin-bottom:8px"><span class="ctx-nome">Helena</span> Souza · vence 23/06</div>
+      <div class="kv"><span>Beneficiário</span><b>Bioma Educação</b></div><div class="kv"><span>Valor</span><b>R$ 2.480,00</b></div>
+      <h3 style="font-size:15px;margin-top:16px">Pague com PIX</h3><div class="pixwrap"><div class="pix"></div></div>
+      <div class="copybox" id="pixcode">00020126360014BR.GOV.BCB.PIX0114+5511999998888520400005303986540 5...BIOMA6304A1B2</div>
+      <button class="btn" onclick="copyPix()"><svg class="ic"><use href="#i-qr"/></svg> Copiar código PIX</button>
+      <button class="btn ghost" style="margin-top:10px" onclick="toast('Gerando boleto em PDF…')"><svg class="ic"><use href="#i-dl"/></svg> Baixar boleto (PDF)</button>
+    </div></div>
 
-    <div id="ov-trocar" class="ovl" onclick="if(event.target===this)closeOvl('ov-trocar')">
-      <div class="sheet"><div class="grab"></div>
-        <h3>Trocar dependente</h3>
-        <div class="depcard" style="--c:#0c7d70;--c2:#34c9b0;margin-top:12px" onclick="pick('vila')"><div class="av">H</div><div><div class="nm">Helena Souza</div><div class="sc">7º ano B · Escola da Vila</div></div><div class="chev"><svg class="ic"><use href="#i-chev"/></svg></div></div>
-        <div class="depcard" style="--c:#c24f1c;--c2:#ff8d4e" onclick="pick('apoio')"><div class="av">T</div><div><div class="nm">Theo Souza</div><div class="sc">3º ano A · Colégio Apoio</div></div><div class="chev"><svg class="ic"><use href="#i-chev"/></svg></div></div>
-      </div>
-    </div>
+    <div id="ov-trocar" class="ovl" onclick="if(event.target===this)closeOvl('ov-trocar')"><div class="sheet"><div class="grab"></div>
+      <h3>Trocar dependente</h3>
+      <div class="depcard" style="--c:#1D2362;--c2:#584294;margin-top:12px" onclick="pick('vila')"><div class="av">H</div><div><div class="nm">Helena Souza</div><div class="sc">7º ano B · Escola da Vila</div></div><div class="chev"><svg class="ic"><use href="#i-chev"/></svg></div></div>
+      <div class="depcard" style="--c:#00843d;--c2:#43b02a" onclick="pick('parque')"><div class="av">T</div><div><div class="nm">Theo Souza</div><div class="sc">5º ano A · Escola Parque</div></div><div class="chev"><svg class="ic"><use href="#i-chev"/></svg></div></div>
+    </div></div>
 
-    <div id="ov-com" class="ovl" onclick="if(event.target===this)closeOvl('ov-com')">
-      <div class="sheet"><div class="grab"></div>
-        <h3 id="com-t">—</h3><div class="muted" id="com-m" style="margin-bottom:12px">—</div>
-        <p id="com-b" style="font-size:13.8px;line-height:1.65;font-weight:500"></p>
-        <button class="btn ghost" onclick="closeOvl('ov-com')">Fechar</button>
-      </div>
-    </div>
+    <div id="ov-com" class="ovl" onclick="if(event.target===this)closeOvl('ov-com')"><div class="sheet"><div class="grab"></div>
+      <h3 id="com-t">—</h3><div class="muted" id="com-m" style="margin-bottom:12px">—</div><p id="com-b" style="font-size:13.8px;line-height:1.65;font-weight:500"></p>
+      <button class="btn ghost" onclick="closeOvl('ov-com')">Fechar</button></div></div>
 
-    <div id="ov-sobre" class="ovl" onclick="if(event.target===this)closeOvl('ov-sobre')">
-      <div class="sheet"><div class="grab"></div>
-        <h3>Sobre este protótipo</h3>
-        <p style="font-size:13.5px;line-height:1.65;font-weight:500">Protótipo navegável do <b>Portal do Aluno e da Família</b> da Bioma Educação (MVP Fase 1). Use o seletor no topo para alternar entre <b>Mobile (PWA)</b> e <b>Web (Desktop)</b>.</p>
-        <p style="font-size:13.5px;line-height:1.65;font-weight:500"><b>Princípios:</b> mobile-first; financeiro e comunicação em primeiro plano; uma escola, um tema; clareza para famílias; confiança e LGPD.</p>
-        <p style="font-size:13.5px;line-height:1.65;font-weight:500"><b>Observações:</b> dados fictícios; identidade visual (azul Bioma, teal Vila, coral Apoio) <b>provisória</b> até o Manual da Marca; integração com o TOTVS RM simulada.</p>
-        <button class="btn" onclick="closeOvl('ov-sobre')">Entendi</button>
-      </div>
-    </div>
+    <div id="ov-sobre" class="ovl" onclick="if(event.target===this)closeOvl('ov-sobre')"><div class="sheet"><div class="grab"></div>
+      <h3>Sobre este protótipo</h3>
+      <p style="font-size:13.5px;line-height:1.65;font-weight:500">Protótipo navegável do <b>Portal do Aluno e da Família</b> da Bioma Educação (MVP Fase 1, v1.1). Alterne <b>Mobile</b>/<b>Web</b> no topo.</p>
+      <p style="font-size:13.5px;line-height:1.65;font-weight:500"><b>Identidade fiel aos manuais:</b> Bioma (ciano→índigo, Comfortaa), Escola da Vila (índigo #1D2362 + multicor, fonte arredondada) e Escola Parque (verde/multicor). As fontes Ainslie Sans (Vila) e Avenir Next (Parque) são licenciadas — aqui aproximadas por Quicksand e Jost.</p>
+      <p style="font-size:13.5px;line-height:1.65;font-weight:500"><b>v1.1 — paridade:</b> inclui matrícula orquestrada, ficha médica, documentos, autorizações de saída, NF-e/NFS-e/quitação/contrato (RM Reports), serviços externos (SSO), livros didáticos e atendimento. Dados fictícios; integração TOTVS RM simulada.</p>
+      <button class="btn" onclick="closeOvl('ov-sobre')">Entendi</button></div></div>
 
     <div id="toast" class="toast"><svg class="ic"><use href="#i-check"/></svg><span id="toast-t"></span></div>
-  </div><!-- /device -->
-</div><!-- /stage -->
+  </div>
+</div>
 
 <script>
 var DEP={
   vila:{nome:'Helena',serie:'7º ano B',escola:'Escola da Vila',ini:'H',school:'vila'},
-  apoio:{nome:'Theo',serie:'3º ano A',escola:'Colégio Apoio',ini:'T',school:'apoio'}
+  parque:{nome:'Theo',serie:'5º ano A',escola:'Escola Parque',ini:'T',school:'parque'}
 };
 var device=document.getElementById('device');
 var stack=['scr-home'];
-
-function setMode(m){
-  document.body.setAttribute('data-mode',m);
-  document.querySelectorAll('#seg button').forEach(function(b){b.classList.toggle('on',b.dataset.m===m);});
-}
+function setMode(m){document.body.setAttribute('data-mode',m);document.querySelectorAll('#seg button').forEach(function(b){b.classList.toggle('on',b.dataset.m===m);});}
 function tabOf(id){
   if(['scr-boletim','scr-freq','scr-horario','scr-calendario','scr-materiais','scr-atividades'].includes(id))return'acad';
   if(['scr-avisos','scr-agenda'].includes(id))return'avisos';
-  if(['scr-financeiro','scr-ir'].includes(id))return'financeiro';
-  if(['scr-mais','scr-rematricula','scr-requerimentos','scr-conta'].includes(id))return'mais';
+  if(['scr-financeiro','scr-ir','scr-docrel','scr-acordo'].includes(id))return'financeiro';
+  if(['scr-mais','scr-rematricula','scr-ficha','scr-docs','scr-autoriz','scr-requerimentos','scr-servicos','scr-livros','scr-atend','scr-conta'].includes(id))return'mais';
   return'home';
 }
 function activate(id){
   document.querySelectorAll('.screen').forEach(function(s){s.classList.remove('active');});
-  var el=document.getElementById(id); if(!el)return;
-  el.classList.add('active');
+  var el=document.getElementById(id); if(!el)return; el.classList.add('active');
   document.getElementById('screens').scrollTop=0;
   var t=tabOf(id);
   document.querySelectorAll('#bottomnav button').forEach(function(b){b.classList.toggle('on',b.dataset.tab===t);});
@@ -900,70 +837,29 @@ function activate(id){
 function go(id){ if(stack[stack.length-1]!==id)stack.push(id); activate(id); }
 function goTab(id){ stack=[id]; activate(id); }
 function back(){ if(stack.length>1)stack.pop(); activate(stack[stack.length-1]); }
-
+function enter(){enterResp();}
 function setTxt(sel,txt){document.querySelectorAll(sel).forEach(function(e){e.textContent=txt;});}
 function applyDep(key,role){
   var d=DEP[key];
-  device.setAttribute('data-school',d.school);
-  device.setAttribute('data-role',role);
-  setTxt('.ctx-nome',d.nome); setTxt('.ctx-serie',d.serie);
-  setTxt('.ctx-escola',d.escola); setTxt('.ctx-ini',d.ini);
-  if(role==='aluno'){
-    setTxt('.ctx-user',d.nome);
-    setTxt('.ctx-sub','Sua vida acadêmica · '+d.escola);
-    setTxt('.ctx-avatar',d.ini);
-  }else{
-    setTxt('.ctx-user','Patrícia');
-    setTxt('.ctx-sub','Acompanhe '+d.nome+' · '+d.escola);
-    setTxt('.ctx-avatar','P');
-  }
-  document.getElementById('select').classList.remove('show');
-  closeOvl('ov-trocar');
-  document.getElementById('appwrap').style.display='flex';
-  goTab('scr-home');
+  device.setAttribute('data-school',d.school); device.setAttribute('data-role',role);
+  setTxt('.ctx-nome',d.nome); setTxt('.ctx-serie',d.serie); setTxt('.ctx-escola',d.escola); setTxt('.ctx-ini',d.ini);
+  if(role==='aluno'){ setTxt('.ctx-user',d.nome); setTxt('.ctx-sub','Sua vida acadêmica · '+d.escola); setTxt('.ctx-avatar',d.ini); }
+  else{ setTxt('.ctx-user','Patrícia'); setTxt('.ctx-sub','Acompanhe '+d.nome+' · '+d.escola); setTxt('.ctx-avatar','P'); }
+  document.getElementById('select').classList.remove('show'); closeOvl('ov-trocar');
+  document.getElementById('appwrap').style.display='flex'; goTab('scr-home');
 }
 function pick(key){ applyDep(key, device.getAttribute('data-role')||'resp'); }
 function enterResp(){ device.setAttribute('data-role','resp'); document.getElementById('login').classList.remove('show'); document.getElementById('select').classList.add('show'); }
 function enterAluno(){ document.getElementById('login').classList.remove('show'); applyDep('vila','aluno'); }
-function logout(){
-  document.getElementById('appwrap').style.display='none';
-  document.getElementById('select').classList.remove('show');
-  document.getElementById('login').classList.add('show');
-  ['ov-2via','ov-trocar','ov-com','ov-sobre'].forEach(closeOvl);
-}
+function logout(){ device.setAttribute('data-school','bioma'); document.getElementById('appwrap').style.display='none'; document.getElementById('select').classList.remove('show'); document.getElementById('login').classList.add('show'); ['ov-2via','ov-trocar','ov-com','ov-sobre'].forEach(closeOvl); }
 function openOvl(id){document.getElementById(id).classList.add('show');}
 function closeOvl(id){document.getElementById(id).classList.remove('show');}
-function openComunicado(el,t,m,b){
-  if(el){var nd=el.querySelector('.nd'); if(nd)nd.remove();}
-  document.getElementById('com-t').textContent=t;
-  document.getElementById('com-m').textContent=m;
-  document.getElementById('com-b').textContent=b;
-  openOvl('ov-com');
-}
-function copyPix(){
-  var code=document.getElementById('pixcode').textContent;
-  if(navigator.clipboard)navigator.clipboard.writeText(code).catch(function(){});
-  toast('Código PIX copiado!');
-}
-function confirmRemat(){
-  document.getElementById('remat-form').style.display='none';
-  document.getElementById('remat-ok').style.display='block';
-  document.getElementById('screens').scrollTop=0;
-}
-function abrirReq(nome){
-  var list=document.getElementById('meus-req');
-  var n=4400+(list.children.length+1)*37;
-  var div=document.createElement('div'); div.className='li';
-  div.innerHTML='<div class="chip-ic" style="background:var(--accent-soft);color:var(--accent)"><svg class="ic"><use href="#i-clock"/></svg></div><div><div class="tt">'+nome+'</div><div class="ds">Protocolo 2026-0'+n+' · agora</div></div><div class="rt"><span class="pill p-acc">em análise</span></div>';
-  list.insertBefore(div,list.firstChild);
-  toast('Requerimento aberto · protocolo gerado');
-}
+function openComunicado(el,t,m,b){ if(el){var nd=el.querySelector('.nd'); if(nd)nd.remove();} document.getElementById('com-t').textContent=t; document.getElementById('com-m').textContent=m; document.getElementById('com-b').textContent=b; openOvl('ov-com'); }
+function copyPix(){ var code=document.getElementById('pixcode').textContent; if(navigator.clipboard)navigator.clipboard.writeText(code).catch(function(){}); toast('Código PIX copiado!'); }
+function confirmRemat(){ document.getElementById('remat-form').style.display='none'; document.getElementById('remat-ok').style.display='block'; document.getElementById('screens').scrollTop=0; }
+function abrirReq(nome){ var list=document.getElementById('meus-req'); var n=4400+(list.children.length+1)*37; var div=document.createElement('div'); div.className='li'; div.innerHTML='<div class="chip-ic ic-blue"><svg class="ic"><use href="#i-clock"/></svg></div><div><div class="tt">'+nome+'</div><div class="ds">Protocolo 2026-0'+n+' · agora</div></div><div class="rt"><span class="pill p-acc">em análise</span></div>'; list.insertBefore(div,list.firstChild); toast('Requerimento aberto · protocolo gerado'); }
 var toastT;
-function toast(msg){
-  document.getElementById('toast-t').textContent=msg;
-  var t=document.getElementById('toast'); t.classList.add('show');
-  clearTimeout(toastT); toastT=setTimeout(function(){t.classList.remove('show');},1900);
-}
+function toast(msg){ document.getElementById('toast-t').textContent=msg; var t=document.getElementById('toast'); t.classList.add('show'); clearTimeout(toastT); toastT=setTimeout(function(){t.classList.remove('show');},2000); }
 if(window.matchMedia&&window.matchMedia('(max-width:640px)').matches)setMode('mobile');
 </script>
 </body>
